@@ -28,8 +28,5 @@
   "repository": "https://github.com/jcaleb4/vending-machine.git",
   "author": "Caleb Briancesco",
   "license": "OPL-1.0",
-  "private": false,
-  "devDependencies": {
-    "gridfs-stream": "^1.1.1"
-  }
+  "private": false
 }

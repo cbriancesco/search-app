@@ -152,9 +152,9 @@ app.controller('addController', function ($scope, teamsFactory){
         filePath = URL.createObjectURL(event.target.files[0]);
         console.log(image.files[0]);
 
-        $scope.$apply(function() {
+        /*$scope.$apply(function() {
             $scope.img_url = filePath;
-        });
+        });*/
         
     }
 
@@ -166,7 +166,7 @@ app.controller('addController', function ($scope, teamsFactory){
                 _id: teamsFactory.getId(), // a MongoDb ObjectId
                 filename: file.name, // a filename
                 mode: 'w', // default value: w
-                chunkSize: 1024,
+                chunkSize: 1024, //1024*250,
                 content_type: file.type,//'image/jpg', // For content_type to work properly, set "mode"-option to "w" too!
                 root: 'images'
             }
@@ -177,19 +177,6 @@ app.controller('addController', function ($scope, teamsFactory){
         console.log(image); ///uploadImage
     }
 });
-
-
-
-
-    
-
-
-
-
-
-
-
-
 
 
 
