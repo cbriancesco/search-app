@@ -1,0 +1,7 @@
+div.cities
+    input(type='text' ng-model='query')
+
+    h2 These are the teams
+
+    ul
+        li(ng-repeat='team in teams | filter:query | orderBy:"name"') {{team.name}} #[input(type='checkbox', ng-click='deleteTeam(team._id)')] Delete

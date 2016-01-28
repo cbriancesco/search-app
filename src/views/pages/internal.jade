@@ -1,0 +1,21 @@
+//- -------------- Internal Page -------------- -//
+//- ------------------------------------------- -//
+
+extends ../layout/layout
+
+
+block append head
+    link(href='css/home.css', rel='stylesheet', type='text/css')
+
+
+block content
+
+    h2 Internal Page
+    a.scroll__to(href='#sample', data-offset='100') jump to sample
+
+    .sampleContainer
+        .sampleContent#sample
+            h3 here is the sample
+
+block append footer-scripts
+        script(src="js/internal.js")

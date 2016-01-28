@@ -1,0 +1,16 @@
+//- -------------- Images ---------------- -//
+//- --------------------------------------- -//
+mixin basicImage(src, alt, cls)
+    img.generic__image(src=src, alt=alt, class=cls )
+
+
+//- -------------- Buttons ---------------- -//
+//- --------------------------------------- -//
+mixin basicLink(text, url, newclass, newTab)
+    a.generic__link(class=newclass, href=url || '#', target=newTab || '_self')&attributes(attributes) #{text}
+    
+//- -------------- LISTS ---------------- -//
+//- --------------------------------------- -//
+mixin basicList(classlist, text, url, newclass, newTab)
+    li.basic__list(class=classlist)
+        a.generic__link(class=newclass, href=url || '#', target=newTab || '_self')&attributes(attributes) !{text}  

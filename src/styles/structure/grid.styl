@@ -1,0 +1,18 @@
+// ---------------------------------------- //
+// -------------- GENERIC GRID ------------ //
+// ---------------------------------------- //
+
+.generic__container
+    max-width $size-desktop
+    
+.generic__container__in
+    max-width $size-desktop-in
+    
+    +for_breakpoint(tablet)
+        max-width $size-tablet-in
+    
+    
+.generic__container,
+.generic__container__in
+    display block
+    margin 0 auto

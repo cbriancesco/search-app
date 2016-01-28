@@ -1,0 +1,16 @@
+div.cities
+    h1 Add a new team
+    
+    input(type="text", ng-model="newTeam", placeholder="Team Name")
+    input(type="button", value="Add", ng-click='addTeam()')
+    br
+    br
+
+    input(type="file", ng-model="newImage", onchange="angular.element(this).scope().selectFile(this)")
+    p hello
+    img(ng-src="{{img_url}}")
+
+
+
+    button(ng-click="uploadImage()") Upload your file
+
