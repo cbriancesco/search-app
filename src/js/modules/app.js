@@ -74,7 +74,8 @@ app.factory('teamsFactory', function($http){
         $http({
             method: 'POST',
             data: image,
-            url: '/uploadImage'
+            url: '/upload', //'/uploadImage',
+            file: image.file
         }).then(function successCallback(response) {
             console.log('sent');
             response.data;
@@ -92,14 +93,49 @@ app.factory('teamsFactory', function($http){
     }
 
 
+    function uploadFileToUrl(file, uploadUrl){
+        var fd = new FormData();
+        fd.append('file', file);
+
+        $http({method: 'POST',
+            url: uploadUrl,                
+            data: fd,
+            transformRequest: angular.identity,
+            headers: {
+                'Content-Type': 'image/png', /*or whatever type is relevant */
+                'Accept': 'application/json' /* ditto */
+            },
+        }).success(function(){
+            console.log('success');
+        }).error(function(){
+            console.log('error');
+        });
+
+        /*$http.post(uploadUrl, fd, {
+            transformRequest: angular.identity,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
+            
+        })
+        .success(function(){
+            console.log('success');
+        })
+        .error(function(){
+            console.log('error');
+        });*/
+    }
+
+
+
     return {
         getAll : getAll,
         add : add,
         deleteTeam : deleteTeam,
         getId: getId,
-        uploadImage : uploadImage
+        uploadImage : uploadImage,
+        uploadFileToUrl: uploadFileToUrl
    };
 });
+
 
 
 app.controller('mainController', function ($scope){
@@ -131,7 +167,7 @@ app.controller('secundaryController', function ($scope, teamsFactory){
 });
 
 
-app.controller('addController', function ($scope, teamsFactory){
+app.controller('addController', function ($scope, teamsFactory, $http){
     var file;
     var filePath;
 
@@ -149,8 +185,13 @@ app.controller('addController', function ($scope, teamsFactory){
 
     $scope.selectFile = function(image){
         file = image.files[0];
-        filePath = URL.createObjectURL(event.target.files[0]);
-        console.log(image.files[0]);
+        //console.log(file);
+        //filePath = URL.createObjectURL(event.target.files[0]);
+        //console.log(image.files[0]);
+
+        //file = $scope.myFile;
+        //var uploadUrl = 'http://localhost:4000/public/uploads';
+        //teamsFactory.uploadFileToUrl(file, uploadUrl);
 
         /*$scope.$apply(function() {
             $scope.img_url = filePath;
@@ -160,8 +201,11 @@ app.controller('addController', function ($scope, teamsFactory){
 
     $scope.uploadImage = function(){
         var image = {
-            file: file,
-            path: './public/uploads/'+ file.name,//filePath,
+            file: file,//file,
+            path: filePath,
+            fileName: file.name,
+            fileType: file.type,
+            fileContext: 'team profile',
             options: {
                 _id: teamsFactory.getId(), // a MongoDb ObjectId
                 filename: file.name, // a filename
@@ -176,7 +220,41 @@ app.controller('addController', function ($scope, teamsFactory){
 
         console.log(image); ///uploadImage
     }
+
+
+
+
+
+
+
+    $scope.onFileSelect = function(image) {
+        console.log('select file');
+
+        $scope.uploadInProgress = true;
+        $scope.uploadProgress = 0;
+
+        if (angular.isArray(image)) {
+            image = image[0];
+        }
+
+        $http({
+                url: '/public/uploads',
+                method: 'POST',
+                data: {
+                type: 'profile'
+            },
+            file: image
+        }).success(function(data, status, headers, config) {
+            console.log('Photo uploaded!');
+        }).error(function(err) {
+            $scope.uploadInProgress = false;
+            console.log('Error uploading file: ' + err.message || err);
+        });
+    };
 });
+
+
+
 
 
 

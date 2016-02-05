@@ -1,12 +1,14 @@
 var ErrorHandler = require('./error').errorHandler,
-    GridStore = require('mongodb').GridStore,
-    assert = require('assert');
-    fs = require('fs'),
-    Grid = require('gridfs-stream'),
+    assert = require('assert'),
+    fs = require("fs"),
     mongo = require('mongodb');
+var fileupload = require('fileupload').createFileUpload('public/uploads').middleware;
 
-var db = new mongo.Db('pst-search', new mongo.Server("127.0.0.1", 27017));
-var gfs = Grid(db, mongo);
+
+var uuid = require('uuid'); // https://github.com/defunctzombie/node-uuid
+var multiparty = require('multiparty'); // https://github.com/andrewrk/node-multiparty
+var s3 = require('s3');
+
 
 module.exports = exports = function(app, db) {
 
@@ -81,41 +83,79 @@ module.exports = exports = function(app, db) {
         }); 
     });
 
-    app.post('/uploadImage', function(req, res){
-        console.log(req.body.options.filename);  
+    app.post('/upload', function(req, res) {
+        console.log(req.body.file);
+        var form = new multiparty.Form();
+        form.parse(req, function(err, fields, files) {
+            var file = req.body.file;
+            var contentType = file.headers['content-type'];
+            var extension = req.body.fileName.substring(req.body.fileName.lastIndexOf('.'));
+            var destPath = '/public/uploads/' + uuid.v4() + extension;
 
-        var writestream = gfs.createWriteStream([req.body.optionsoptions]);
-        fs.createReadStream(req.body.path).pipe(writestream);
+            var headers = {
+                'x-amz-acl': 'public-read',
+                'Content-Length': req.body.file.size,
+                'Content-Type': req.body.file.contentType
+            };
+            var uploader = s3Client.upload(file.path, destPath, headers);
 
-        writestream.on('finish', function() {
-            return res.status(200).send({
-                message: fileId.toString()
+            uploader.on('error', function(err) {
+                //TODO handle this
+            });
+
+            uploader.on('end', function(url) {
+                //TODO do something with the url
+                console.log('file opened:', url);
             });
         });
+    });
 
-        /*// Set up gridStore
-        var stream = new GridStore(db, req.body.options.filename, 'w', req.body.options).stream();
-        // File we want to write to GridFS
-        var filename = './' + req.body.options.filename;  
-        // Create a file reader stream to an object
-        var fileStream = fs.createReadStream(filename);
+    app.post('/uploadImage', function(req, res){
+        console.log(req.body);
 
-        // Finish up once the file has been all read
-        stream.on("end", function(err) {
-            // Just read the content and compare to the raw binary
-            GridStore.read(db, req.body.options.filename, function(err, gridData) {
-                assert.equal(null, err);
-                var fileData = fs.readFileSync(filename);
-                assert.equal(fileData.toString('hex'), gridData.toString('hex'));
-                db.close();
-            })
+
+        var image_origial = req.body.path;
+
+        fs.readFile(image_origial, 'binary', function(err, original_data){
+            fs.writeFile(req.body.fileName, original_data, 'binary', function(err) {});
+            var base64Image = new Buffer(original_data, 'binary').toString('base64');
+            console.log("base64 str:");
+            console.log(base64Image);
+            console.log(base64Image.length);
+
+            //var decodedImage = new Buffer(base64Image, 'base64').toString('binary');
+            //console.log("decodedImage:");
+            //console.log(decodedImage);
+            //fs.writeFile('image_decoded.png', decodedImage, 'binary', function(err) {});
         });
 
-        // Pipe it through to the gridStore
-        fileStream.pipe(stream);  */
+        
 
     });
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
