@@ -7,19 +7,20 @@ div.cities
     br
 
     h2 Add image
-    
-    input(type="file", ng-model="newImage", file-model="myFile", onchange="angular.element(this).scope().selectFile(this)")
-    
-    p(ng-model="uploadProgress")
+
+    form(action="/profile", method="post", enctype="multipart/form-data")
+        input(type="file")
+        input(type='submit', value='submit')
+
+    //-
+        input(type="file", ng-model="newImage", file-model="myFile", onchange="angular.element(this).scope().selectFile(this)")
+        p(ng-model="uploadProgress")
     
 
     //-
-        button(ng-model='upload') Upload 
-        #[input(type="file", onchange="angular.element(this).scope().onFileSelect(this)")]
-    
-    //-img(ng-src="{{img_url}}")
+        Upload image #[input(type="file", data-ng-file-select="onFileSelect($files)", accept="image/png, image/jpeg")]
+        span(data-ng-if="uploadInProgress") Upload progress: {{ uploadProgress }}
+        img(data-ng-src="uploadedImage", data-ng-if="uploadedImage")
 
 
-
-    button(ng-click="uploadImage()") Upload your file
 

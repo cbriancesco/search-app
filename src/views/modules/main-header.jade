@@ -1,11 +1,17 @@
 //- -------------- Header ---------------- -//
 //- -------------------------------------- -//
 
-- var upper = [{name: 'Home', url: '#/'}, {name: 'List', url: '#/list'}, {name: 'Add Teams', url: '#/add'}, {name: 'Contact Us', url: '#/contact'}]
+ul 
+    li
+        a(ui-sref='home') HomePage
+    li
+        a(ui-sref='teams') Teams
 
-header.main__header
-    nav.main__header__holder
-        ul.main__header__nav
-            - for page in upper
-                li.main__header__item
-                    mixin basicLink(page.name, page.url, 'main__header__link')
+div
+    input(type='text', ng-model='login.user', placeholder='User Name')
+    br
+    input(type='password', ng-model='login.pass', placeholder='Password')
+    br
+    button login
+    a(ui-sref='signUp') Create an accout
+
