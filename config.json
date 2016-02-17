@@ -1,0 +1,43 @@
+{
+    "version": "0.0.1",
+    "paths": {
+        "dev": {
+            "path": "./src/",
+            "images": "./src/img/",
+            "js": {
+                "root": "./src/js/",
+                "base": "./src/js/",
+                "controllers": "./src/js/controllers/",
+                "thirdparty": "./src/js/thirdparty/"
+            },
+            "css": {
+                "root": "./src/styles/",
+                "pages": "./src/styles/pages/",
+                "thirdparty": "./src/styles/thirdparty/"
+            },
+            "data": "./src/data/",
+            "fonts": "./src/fonts/",
+            "root": "./src/root/",
+            "views": {
+                "root": "./src/views/",
+                "pages": "./src/views/pages/",
+                "templates": "./src/views/templates/"
+            }
+        },
+        "prod": {
+            "path": "./build/",
+            "images": "./build/img/",
+            "views":{
+                "templates": "./app/templates/"
+                },
+            "js": {"base": "./app/"},
+            "css": {
+                "root": "./app/css/",
+                "thirdparty": "./app/css/thirdparty/"
+            },
+            "data": "./build/data/",
+            "fonts": "./build/fonts/",
+            "root": "./"
+        }
+    }
+}

@@ -1,0 +1,38 @@
+// ---------------------------------------- //
+// ------------ GENERIC CONTENTS ---------- //
+// ---------------------------------------- //
+
+h1, 
+h2,
+h3,
+h4,
+h5,
+h6
+    font-size 35px
+    font-family $font-normal
+
+
+h1 
+    text-transform uppercase
+    
+.block
+    display block 
+    
+.pad-25
+    padding-top 25px
+    
+    +for_breakpoint(mobile)
+        padding-top 15px
+    
+.selector
+    box-sizing border-box
+
++for_breakpoint(mobile)
+    .mobile-block
+        display block   
+        
+h1, h2, h3, h4, p, li, span, a
+    &:before
+        font-family Arial, sans-serif
+        content ''
+        line-height 0

@@ -1,0 +1,86 @@
+// ---------------------------------------- //
+// --------------- MAIN HEADER ------------ //
+// ---------------------------------------- //
+
+.main__header
+    background $fountain-blue
+    padding 47px 0
+    
+    +for_breakpoint(mobile)
+        padding 22px 0
+    
+.main__header__title
+    //width 330px
+    height 60px
+    background url('../img/defaults/listerine-logo.svg') no-repeat
+    background-position 20px center
+    background-size auto 100%
+    text-indent -99999px
+    
+    +for_breakpoint(mobile)
+        height 24px
+        background-position center
+    
+
+.page__title
+    text-transform uppercase
+    font-size 66.73px
+    color $curious-blue
+    font-family 'Knockout-full'
+    line-height 90px
+    overflow hidden
+    padding 0
+    
+    +new_breakpoint(null, 900px, null)
+        line-height 0px
+        padding 40px 0 0 0
+        
+        &:first-line
+            line-height 20px
+    
+.page__title__holder
+    padding 40px 0px 35px
+    
+.page__title
+    line-height 50px
+    
+    .selective__block
+        +new_breakpoint(null, 650px, null)
+            display block
+    
++for_breakpoint(mobile)
+    .page__title__holder
+        padding 20px 0 0px
+    
+    .page__title
+        height auto
+        line-height 87px
+        padding 24px 0 0px 0
+        margin-bottom 20px
+        border-bottom 1px solid $gallery 
+    
+    .mobile-block
+        display block
+        line-height 10px
+        
++new_breakpoint(null, 500px, null)
+    .page__title__holder,
+    .page__title
+        font-size 37.5px 
+        line-height 43px
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    

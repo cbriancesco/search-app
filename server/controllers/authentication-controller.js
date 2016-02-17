@@ -16,13 +16,10 @@ module.exports.login = function (req, res){
         }
         
         if (results && results.length === 1){
-            var userData= results[0];
-            
+            var userData = results[0];
+
             res.json({email: userData.email,
-                      _id: userData._id,
-                      username: userData.user,
-                      image: userData.image,
-                      team: userData.team});
+                      id: userData._id});
         }
     })
 }

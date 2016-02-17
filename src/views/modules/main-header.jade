@@ -1,14 +1,16 @@
 //- -------------- Header ---------------- -//
 //- -------------------------------------- -//
-
-ul 
-    li
-        a(ui-sref='home') HomePage
-    li
-        a(ui-sref='teams') Teams
-
-
 nav(ng-controller="NavigationController")
+    ul 
+        li
+            a(ui-sref='home') HomePage
+        li(ng-show='loggedIn')
+            a(ui-sref='teams') Teams
+        li(ng-show='loggedIn')
+            a(ui-sref='editProfile') Edit Profile
+
+
+
     div(ng-show='!loggedIn')
         input(type='text', ng-model='login.user', placeholder='User Name')
         input(type='password', ng-model='login.pass', placeholder='Password')

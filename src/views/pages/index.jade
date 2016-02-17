@@ -5,29 +5,13 @@ extends ../layout/layout
 
 
 block append head
-    //- link(href='css/home.css', rel='stylesheet', type='text/css')
+    link(href='app/css/home.css', rel='stylesheet', type='text/css')
 
 
 block content
-    //- content goes here
-    //-include ../modules/sample-content
-
     div(ui-view)
-
-
-
-
-
-
-
-
-
 
 
 
 block append footer-scripts
     script(src="app/app.js")
-    script(src="app/controllers/signup-controller.js")
-    script(src="app/controllers/home-controller.js")
-    script(src="app/controllers/teams-controller.js")
-    script(src="app/controllers/navigation-controller.js")

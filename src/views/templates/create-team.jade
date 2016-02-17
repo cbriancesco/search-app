@@ -1,0 +1,10 @@
+div(ng-show='showContent')
+    ul
+        li(ng-repeat='team in myTeams') {{team.name}}
+            input(type="checkbox", ng-click="deleteTeam(team._id)") 
+            | Delete
+
+    div
+        p Create New Team
+        input(type='text', ng-model='newTeam.name', placeholder='Team Name')
+        button(ng-click="createTeam()") Create Team

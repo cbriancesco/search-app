@@ -1,0 +1,251 @@
+// ---------------------------------------- //
+// -------------- SLIDER ------------------ //
+// ---------------------------------------- //
+
+.slider
+    clear both
+    width 100%
+    margin 0 auto
+    position relative
+    padding 0
+    overflow hidden
+    &:hover .slider__next-button
+        right 0
+    &:hover .slider__prev-button
+        left 0
+
+/* slider buttons */
+.slider__next-button,
+.slider__prev-button
+    position absolute
+    top 50%
+    height 100px
+    width 100px
+    margin-top -50px
+    z-index 5
+    transition opacity 0.3s
+    color $white
+
+.slider__next-button
+    right 0px
+    margin -50px 0 0 -50px
+
+.slider__prev-button
+    left 0px
+    margin -50px -50% 0 0
+    
+.slider__prev-button.auto-hide
+    left -58px
+    
+.slider__next-button.auto-hide
+    right -58px
+    
+.slider__next-button,
+.slider__prev-button
+    //content ''
+    font-family $knockout-jr
+    display block
+    width 100px
+    height 100px
+    text-align center
+    line-height 185px
+    position absolute
+    font-size 130px
+    /*top 50%
+    left 50%
+    margin -50px 0 0 -50px*/
+    opacity 0.6
+    transition opacity 0.3s
+        
+    &:hover
+        opacity 1
+    
+/*.slider__prev-button:before
+    content '<'
+    
+.slider__next-button:before
+    content '>'*/
+
+/* slider container*/
+.slider__container
+    width 100%
+    height 100%
+    position relative
+    overflow hidden
+    
+.slider__content
+    width 100%
+    height 100%
+        
+        
+/* slider items & list */
+.slider__list,
+.slider__item
+    height 100%
+    
+.slider__list
+    position absolute
+    top 0
+    left 0
+    
+.slider__item
+    position relative
+    float left
+    img 
+        width 100%
+        height auto
+        position absolute
+        z-index 1
+        
+    &.cyan
+        background $curious-blue
+        
+    &.green
+        background $emerald
+        
+    &.purple
+        background $scampi
+    
+
+/* slider dots */
+.dots-list,
+.slider__dots
+    width 100%
+    height 18px
+    position absolute
+    bottom 25px
+    left 0
+    text-align center
+    z-index 5
+    
+    +for_breakpoint(mobile)
+        bottom 50%
+        
+
+.dots-item,
+.slider__dots__item
+    display inline-block
+    width 15px
+    height 15px
+    margin 0 15px
+    border-radius 50%
+    background $white
+    opacity 0.5
+    
+    +for_breakpoint(mobile)
+        width 11px
+        height 11px
+        margin 0 11px
+    
+.dots-item.active,
+.dots-item:hover,
+.slider__dots__item:hover
+    opacity 1
+
+.share 
+    display block
+    
+
+//- CUSTOM 
+.slider__copy
+    width 100%
+    position absolute
+    left 0
+    bottom 0
+    padding 0 100px 60px
+    z-index 2
+
+.slider__title
+    color $white
+    font-size 82px
+    line-height 60px
+    font-family $knockout-full
+    text-transform uppercase
+    margin-bottom -6px
+
+.slider__legal
+    padding-top 10px
+    color $white
+    font-size 14px
+    line-height 16px
+    font-family $gotham-book
+    
+.guide2
+    display none
+
+//- -------- TABLET & MOBILE ---------- //
++for_breakpoint(mobile)
+    .guide 
+        display none
+        
+    .guide2
+        display block
+    
+    .slider__copy
+        height 49%
+        padding 25px 20px 
+        box-sizing border-box
+    
+    .slider__title
+        font-size 32px
+        line-height 24px
+        
+    .slider__legal
+        max-width 90%
+        font-size 11px
+        line-height 10px
+        
+    .slider
+        border none
+        width 100%
+        padding-top 0
+        
+        &:after,
+        &:before
+            content ''
+            display block 
+            width 40%
+            height 100%
+            position absolute
+            top 0%
+            z-index 4
+            
+        &:before
+            left 0
+            
+        &:after
+            right 0
+        
+    .slider__next-button,
+    .slider__prev-button
+        display none
+        
++new_breakpoint(501px, 915px, null)
+    .slider__copy
+        padding 50px 40px 
+        
+    .slider__legal
+        max-width 80%
+        
++new_breakpoint(400px, 915px, null)
+    .slider__title
+        font-size 10vw
+        line-height 7.2vw
+        
+    .slider__legal
+        font-size 14px
+        line-height 12px
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,93 @@
+// ---------------------------------------- //
+// -------------- VIDEO PLAYER ------------ //
+// ---------------------------------------- //
+.video__add__holder
+    position relative
+    padding-right 262px
+    
+    +for_breakpoint(mobile)
+        position static
+        padding-right 0
+    
+.video__player__holder
+    width 100%
+    position relative
+    
+.video__player__blank,
+.video__player__face
+    width 100%
+    height auto
+    
+.video__player__video,
+.video__player__header
+    width 100%
+    height 100%
+    
+.video__player__header
+    cursor pointer
+    
+    &:before,
+    &:after
+        content ''
+        display block
+        position absolute 
+        display block
+        top 50%
+        left 50%
+        z-index 3
+    
+    &:before
+        width 112px
+        height 112px
+        margin-top -57px
+        margin-left -57px
+        border 5px solid $seagull
+        box-sizing border-box
+        border-radius 50%
+        
+    &:after
+        border-top 20px solid transparent
+        border-bottom 20px solid transparent
+        border-left 24px solid $seagull
+        margin -23px 0 0 -10px
+        
+    &:hover
+        &:after
+            border-left 24px solid $scampi //$emerald
+        &:before
+            border-color $scampi //$emerald
+        
+.video__player__header
+    position relative
+    z-index 2
+    
+.video__player__video
+    position absolute
+    top 0
+    left 0
+    background-color $eastern-blue
+    z-index 2
+    
+.video__player__video
+    position absolute
+    z-index 1
+    
+    &.video-on
+        z-index 3
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
