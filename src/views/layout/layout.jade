@@ -3,7 +3,7 @@
 include ../mixins/utilities
 
 doctype html
-html
+html(ng-app='Social')
     head
         block head
             meta(charset='utf-8')
@@ -17,8 +17,8 @@ html
         block content
 
 
-        include ../modules/main-footer
+        //-include ../modules/main-footer
 
         block footer-scripts
-            script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js")
-            script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular-route.min.js")
+            script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js")
+            script(src="http://angular-ui.github.io/ui-router/release/angular-ui-router.min.js")

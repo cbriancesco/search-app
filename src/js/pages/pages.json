@@ -1,9 +1,0 @@
-{
-    "pages": [{
-            "pageName": "Home Page",
-            "fileName": "homepage.js",
-            "modules": ["./src/js/modules/app.js"]
-        }
-    ],
-    "defaults": []
-}
