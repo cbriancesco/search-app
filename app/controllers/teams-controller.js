@@ -2,6 +2,11 @@
     angular.module('Social')
     .controller('TeamsController', ['$scope', '$state', '$http', function($scope, $state, $http){
 
+        if (localStorage['User-Data']){
+            $scope.showContent = true;
+        } else {
+            $scope.showContent = false;
+        }
 
         $scope.createTeam = function(){
             console.log($scope.newTeam);

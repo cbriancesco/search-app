@@ -27,6 +27,7 @@ app.get('/', function(req, res){
 
 // Authentication
 app.post('/user/signup', authenticationController.signup);
+app.post('/user/login', authenticationController.login);
 
 // Teams
 app.post('/teams/add', teamsController.addTeam);

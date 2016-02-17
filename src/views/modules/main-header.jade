@@ -7,11 +7,16 @@ ul
     li
         a(ui-sref='teams') Teams
 
-div
-    input(type='text', ng-model='login.user', placeholder='User Name')
-    br
-    input(type='password', ng-model='login.pass', placeholder='Password')
-    br
-    button login
-    a(ui-sref='signUp') Create an accout
 
+nav(ng-controller="NavigationController")
+    div(ng-show='!loggedIn')
+        input(type='text', ng-model='login.user', placeholder='User Name')
+        input(type='password', ng-model='login.pass', placeholder='Password')
+        button(ng-click='logUserIn()') Login
+        a(ui-sref='signUp') Create an accout
+        
+    div(ng-show='loggedIn')
+        h2 Hello {{username}}
+        //-a(ui-sref='editProfile') Edit Profile
+        //-a(ui-sref="follow") Follow Users
+        a(ng-click='logOut()') Logout
