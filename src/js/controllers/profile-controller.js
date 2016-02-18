@@ -35,17 +35,15 @@
 
         
         $scope.update = function(){
-            /*var user = {
-                id: localStorage['User-Data']._id,
-                update: $scope.update
-            };
+            //console.log($scope.profile);
 
-            $http.post('user/profile/update', user).success(function(response){
+            $http.post('user/profile/update', $scope.profile).success(function(response){
+               console.log('response next');
                console.log(response);
 
             }).error(function(error){
                 console.error(error);
-            });*/
+            });
         };
         
 

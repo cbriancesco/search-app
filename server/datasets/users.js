@@ -6,5 +6,9 @@ module.exports = mongoose.model('User', {
     email: String,
     gender: String,
     birth: Date,
+    image: String,
+    team: String,
+    empId: String,
+    position: String,
     signup: { type: Date, default: Date.now }
 });

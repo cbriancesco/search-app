@@ -4,6 +4,10 @@
         
         if (localStorage['User-Data']){
             $scope.loggedIn = true;
+            var userInfo = JSON.parse(localStorage['User-Data']);
+            $scope.navUserName = userInfo.user;
+
+            console.log(localStorage['User-Data']);
         } else {
             $scope.loggedIn = false;
         }
@@ -13,7 +17,10 @@
             $http.post('user/login', $scope.login).success(function(response){
                localStorage.setItem('User-Data', JSON.stringify(response));
                $scope.loggedIn = true;
-               $scope.username = response.username;
+               
+
+               console.log(response);
+
             }).error(function(error){
                 console.error(error);
             });
@@ -28,3 +35,18 @@
 
     }]);
 }());
+
+
+/*angular.module('Social', [])
+.service('sharedProperties', function () {
+    var property = 'First';
+
+    return {
+        getUser: function () {
+            return property;
+        },
+        setUser: function(value) {
+            property = value;
+        }
+    };
+});*/

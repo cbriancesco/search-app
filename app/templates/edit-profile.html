@@ -1,5 +1,14 @@
 
 <div ng-show="showContent">
-  <h2>User {{profile.username}}</h2>
-  <p>Email = {{profile.email}}</p>
+  <p>User Name</p>
+  <input ng-model="profile.user"/>
+  <p>Email</p>
+  <input ng-model="profile.email"/>
+  <p>Team</p>
+  <input ng-model="profile.team"/>
+  <p>Employee ID</p>
+  <input ng-model="profile.empId"/>
+  <p>Position</p>
+  <input ng-model="profile.position"/>
+  <button ng-click="update()">Update</button>
 </div>

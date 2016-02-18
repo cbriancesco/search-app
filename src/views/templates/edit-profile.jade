@@ -1,4 +1,17 @@
 div(ng-show='showContent')
-    h2 User {{profile.username}}
+    p User Name
+    input(ng-model='profile.user')
 
-    p Email = {{profile.email}}
+    p Email
+    input(ng-model='profile.email')
+
+    p Team
+    input(ng-model='profile.team')
+
+    p Employee ID
+    input(ng-model='profile.empId')
+
+    p Position
+    input(ng-model='profile.position')
+
+    button(ng-click='update()') Update

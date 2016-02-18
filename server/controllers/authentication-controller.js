@@ -19,7 +19,8 @@ module.exports.login = function (req, res){
             var userData = results[0];
 
             res.json({email: userData.email,
-                      id: userData._id});
+                    id: userData._id,
+                    user: userData.user});
         }
     })
 }

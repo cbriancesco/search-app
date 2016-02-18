@@ -18,7 +18,7 @@ nav(ng-controller="NavigationController")
         a(ui-sref='signUp') Create an accout
         
     div(ng-show='loggedIn')
-        h2 Hello {{username}}
+        h2 Hello {{navUserName}}
         //-a(ui-sref='editProfile') Edit Profile
         //-a(ui-sref="follow") Follow Users
         a(ng-click='logOut()') Logout

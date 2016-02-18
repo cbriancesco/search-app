@@ -15,6 +15,7 @@ module.exports = exports = function(app, db) {
 
     // Profiles
     app.post('/user/profile/get', profileController.getProfile);
+    app.post('/user/profile/update', profileController.updateProfile);
 
     // Teams
     app.post('/teams/add', teamsController.addTeam);
