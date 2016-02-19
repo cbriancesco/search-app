@@ -23,7 +23,7 @@ module.exports.updatePhoto = function (req, res){
     var tempPath = file.path;
     var fileName = file.name; //userId + uploadDate + file.name;
     var targetPath = path.join(__dirname, "../../uploads/" + fileName);
-    var savePath = "/uploads/" + userId + uploadDate + file.name;
+    //var savePath = "/uploads/" + userId + uploadDate + file.name;
     
     fs.rename(tempPath, targetPath, function (err){
         if (err){
@@ -31,7 +31,7 @@ module.exports.updatePhoto = function (req, res){
         } else {
             User.findById(userId, function(err, userData){
                 var user = userData;
-                user.image = savePath;
+                //user.image = savePath;
                 user.save(function(err){
                     if (err){
                         console.log("failed save")
