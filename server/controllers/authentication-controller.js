@@ -17,10 +17,11 @@ module.exports.login = function (req, res){
         
         if (results && results.length === 1){
             var userData = results[0];
-
             res.json({email: userData.email,
                     id: userData._id,
-                    user: userData.user});
+                    user: userData.user,
+                    image: userData.image,
+                    imageName: userData.imageName});
         }
     })
 }

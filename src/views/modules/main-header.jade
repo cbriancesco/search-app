@@ -1,24 +1,27 @@
 //- -------------- Header ---------------- -//
 //- -------------------------------------- -//
-nav(ng-controller="NavigationController")
-    ul 
-        li
-            a(ui-sref='home') HomePage
-        li(ng-show='loggedIn')
-            a(ui-sref='teams') Teams
-        li(ng-show='loggedIn')
-            a(ui-sref='editProfile') Edit Profile
+nav.main__nav(ng-controller="NavigationController")
+    ul.main__nav__list
+        li.main__nav__item
+            a.main__nav__link(ui-sref='home') HomePage
+        li.main__nav__item(ng-show='loggedIn')
+            a.main__nav__link(ui-sref='teams') Teams
 
 
 
-    div(ng-show='!loggedIn')
-        input(type='text', ng-model='login.user', placeholder='User Name')
-        input(type='password', ng-model='login.pass', placeholder='Password')
-        button(ng-click='logUserIn()') Login
-        a(ui-sref='signUp') Create an accout
+    ul.head__login__list(ng-show='!loggedIn')
+        li.head__login__item
+            input.head__login__input(type='text', ng-model='login.user', placeholder='User Name')
+            input.head__login__input(type='password', ng-model='login.pass', placeholder='Password')
+        li.head__login__item
+            button.head__login__button(ng-click='logUserIn()') Login
+            a.head__login__link(ui-sref='signUp') Create Accout
         
-    div(ng-show='loggedIn')
-        h2 Hello {{navUserName}}
-        //-a(ui-sref='editProfile') Edit Profile
-        //-a(ui-sref="follow") Follow Users
-        a(ng-click='logOut()') Logout
+    ul.head__profile__list(ng-show='loggedIn')
+        li.head__profile__item
+            h2.head__profile__user Hello {{navUserName}}
+            a.head__profile__link(ui-sref='editProfile') Edit Profile
+            a.head__profile__link(ng-click='logOut()') Logout
+
+        li.head__profile__item.image__holder(ng-show='profileImage')
+            img.head__profile__image(ng-show='profileImage', src="{{profileImage}}")

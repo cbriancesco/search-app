@@ -25,7 +25,7 @@ module.exports.uploadFile = function(req, res){
         filename: req.body.fileName
     });
 
-    fs.createReadStream('uploads/' +  req.body.fileName).pipe(writestream);
+    fs.createReadStream('uploads/' + req.body.fileName).pipe(writestream);
  
     writestream.on('close', function (file) {
         console.log('CREATED FILE');

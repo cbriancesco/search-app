@@ -6,7 +6,6 @@
             $scope.loggedIn = true;
             var userInfo = JSON.parse(localStorage['User-Data']);
             $scope.navUserName = userInfo.user;
-            $scope.profileImage = userInfo.showImage;
         } else {
             $scope.loggedIn = false;
         }
@@ -14,27 +13,11 @@
         
         $scope.logUserIn = function(){
             $http.post('user/login', $scope.login).success(function(response){
-                
-                var newInfo = response;
-
-                var image = {id: response.image, name: response.imageName};
-
-                if(newInfo.image){
-                    $http.post('filedownload', image).success(function(data){
-                        
-                        newInfo.showImage = data.file;
-                        $scope.profileImage = data.file;
-
-                        localStorage.clear();
-                        localStorage.setItem('User-Data', JSON.stringify(newInfo));
-                        $scope.loggedIn = true;
-
-                    }).error(function(error){
-                        localStorage.clear();
-                        localStorage.setItem('User-Data', JSON.stringify(newInfo));
-                        $scope.loggedIn = true;
-                    });
-                }
+               localStorage.setItem('User-Data', JSON.stringify(response));
+               $scope.loggedIn = true;
+               
+               console.log('LOGUED USER INFO');
+               console.log(response);
 
             }).error(function(error){
                 console.error(error);
@@ -46,6 +29,10 @@
             $scope.loggedIn = false;
 
             $state.go('home');
+        }
+
+        $scope.onSomethingHappened = function reload(){
+
         }
 
     }]);

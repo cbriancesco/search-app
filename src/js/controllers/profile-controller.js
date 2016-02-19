@@ -1,6 +1,6 @@
 (function(){
     angular.module('Social')
-    .controller('ProfileController', ['Upload', '$scope', '$state', '$http', function(Upload, $scope, $state, $http){
+    .controller('ProfileController', ['Upload', '$scope', '$state', '$http', 'sharedData', function(Upload, $scope, $state, $http, sharedData){
         
         if (localStorage['User-Data']){
             $scope.showContent = true;
@@ -8,8 +8,6 @@
         } else {
             $scope.showContent = false;
         }
-
-
 
         $scope.$watch(function(){
             return $scope.file
@@ -79,6 +77,7 @@
 
         
         function getUserData(){
+            sharedData.test();
 
             var userInfo = JSON.parse(localStorage['User-Data']);
 

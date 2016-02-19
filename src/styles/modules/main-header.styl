@@ -2,72 +2,85 @@
 // --------------- MAIN HEADER ------------ //
 // ---------------------------------------- //
 
-.main__header
-    background $fountain-blue
-    padding 47px 0
-    
-    +for_breakpoint(mobile)
-        padding 22px 0
-    
-.main__header__title
-    //width 330px
-    height 60px
-    background url('../img/defaults/listerine-logo.svg') no-repeat
-    background-position 20px center
-    background-size auto 100%
-    text-indent -99999px
-    
-    +for_breakpoint(mobile)
-        height 24px
-        background-position center
-    
-
-.page__title
-    text-transform uppercase
-    font-size 66.73px
-    color $curious-blue
-    font-family 'Knockout-full'
-    line-height 90px
+.main__nav
     overflow hidden
-    padding 0
+    background-color $white
+    //border-bottom 4px solid $purple
+    box-shadow 0 0 10px $black
+    margin-bottom 20px
     
-    +new_breakpoint(null, 900px, null)
-        line-height 0px
-        padding 40px 0 0 0
+.main__nav__list
+    overflow hidden
+    float left
+    
+.main__nav__item
+    float left
+    margin 0 10px
+
+.main__nav__link
+    display block
+    line-height 86px
+    text-transform uppercase
+    font-family $font-normal 
+    color $magenta
+    
+    &:hover
+        color $purple
         
-        &:first-line
-            line-height 20px
+// LOGIN FORM 
+.head__login__list
+    float right
+    overflow hidden
     
-.page__title__holder
-    padding 40px 0px 35px
+.head__login__item
+    float left
+    padding 13px 10px 0 0
     
-.page__title
-    line-height 50px
+.head__login__link,
+.head__login__button,
+.head__login__input
+    display block
     
-    .selective__block
-        +new_breakpoint(null, 650px, null)
-            display block
+.head__login__input
+    box-sizing border-box
+    width 150px
+    height 24px
+    line-height 24px
+    font-size 14px
+    border 1px solid $lightGray
+    border-radius 30px
+    padding 0 10px
+    margin-bottom 10px
     
-+for_breakpoint(mobile)
-    .page__title__holder
-        padding 20px 0 0px
-    
-    .page__title
-        height auto
-        line-height 87px
-        padding 24px 0 0px 0
-        margin-bottom 20px
-        border-bottom 1px solid $gallery 
-    
-    .mobile-block
-        display block
-        line-height 10px
+    &:focus
+        border-color $green
         
-+new_breakpoint(null, 500px, null)
-    .page__title__holder,
-    .page__title
-        font-size 37.5px 
-        line-height 43px
+.head__login__button
+    box-sizing border-box
+    color $white
+    width 100%
+    background-color $cyan
+    border 1px solid $darkCyan
+    border-radius 30px
+    line-height 18px
+    height 24px
+    text-align center
+    text-transform uppercase
+    margin-bottom 10px
+    
+    &:hover,
+    &:focus
+        background-color $magenta
+        border-color $purple
+        
+.head__login__link
+    font-size 14px
+    text-transform uppercase
+    color $orange
+    line-height 24px
+    
+    &:hover
+        color $darkOrange
 
 
 
@@ -75,7 +88,49 @@
 
 
 
+// USER DATA ON HEADER
+.head__profile__list
+    float right
+    overflow hidden
+    padding 10px
 
+.head__profile__item
+    float left
+    text-align right
+    
+    &.image__holder
+        position relative
+        height 60px
+        width 60px
+        border-radius 50%
+        border 3px solid $cyan
+        overflow hidden
+        
+.head__profile__user
+    font-size 20px
+    line-height 30px
+    text-transform uppercase
+    padding 7px 10px 0 0
+    color $green
+
+.head__profile__link
+    cursor pointer
+    padding 0 10px 0 0
+    display inline-block
+    line-height 20px
+    font-size 14px
+    text-transform uppercase
+    color $orange
+    
+    &:hover
+        color $darkOrange
+
+.head__profile__image
+    height 100%
+    width auto
+    position absolute
+    top 0
+    right 0
 
 
 
