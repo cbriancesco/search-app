@@ -1,14 +1,23 @@
 
 <div ng-show="showContent">
-  <p>User Name</p>
+  <div ngf-select="ngf-select" ng-model="file" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="20MB" class="button">Select</div>
+  <p>Name</p>
+  <input ng-model="profile.name"/>
+  <p>Last Name</p>
+  <input ng-model="profile.lastName"/>
+  <p>Screen Name</p>
   <input ng-model="profile.user"/>
   <p>Email</p>
   <input ng-model="profile.email"/>
   <p>Team</p>
-  <input ng-model="profile.team"/>
+  <select ng-model="profile.team">
+    <option ng-repeat="team in teams">{{team.name}}</option>
+  </select>
   <p>Employee ID</p>
   <input ng-model="profile.empId"/>
   <p>Position</p>
   <input ng-model="profile.position"/>
+  <p>Role</p>
+  <input ng-model="profile.role"/>
   <button ng-click="update()">Update</button>
 </div>

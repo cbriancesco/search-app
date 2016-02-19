@@ -39,6 +39,8 @@
             $http.post('teams/get', data).success(function (response){
                 $scope.myTeams = response;
                 console.log(response);
+            }).error(function(error){
+                console.log(error);
             })
         };
 

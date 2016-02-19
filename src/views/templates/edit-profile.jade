@@ -1,17 +1,33 @@
 div(ng-show='showContent')
-    p User Name
+
+    div(class="button", ngf-select, ng-model="file", name="file", ngf-pattern="'image/*'", ngf-accept="'image/*'", ngf-max-size="20MB") Select
+
+
+
+
+    p Name
+    input(ng-model='profile.name')
+
+    p Last Name
+    input(ng-model='profile.lastName')
+
+    p Screen Name
     input(ng-model='profile.user')
 
     p Email
     input(ng-model='profile.email')
 
     p Team
-    input(ng-model='profile.team')
+    select(ng-model='profile.team')
+        option(ng-repeat='team in teams') {{team.name}}
 
     p Employee ID
     input(ng-model='profile.empId')
 
     p Position
     input(ng-model='profile.position')
+
+    p Role
+    input(ng-model='profile.role')
 
     button(ng-click='update()') Update

@@ -6,8 +6,6 @@
             $scope.loggedIn = true;
             var userInfo = JSON.parse(localStorage['User-Data']);
             $scope.navUserName = userInfo.user;
-
-            console.log(localStorage['User-Data']);
         } else {
             $scope.loggedIn = false;
         }
@@ -24,6 +22,7 @@
             }).error(function(error){
                 console.error(error);
             });
+
         };
         
         $scope.logOut = function () {

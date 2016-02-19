@@ -1,11 +1,11 @@
 var express = require('express'),
     mongoose = require('mongoose'),
     bodyParser = require('body-parser'),
-    app = express();
-var routes = require('./server/routes');
-
+    app = express(),
+    routes = require('./server/routes');
 
 mongoose.connect('mongodb://localhost:27017/social');
+
 
 app.use(bodyParser.json());
 app.set('view engine', 'jade');
