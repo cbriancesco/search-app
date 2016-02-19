@@ -19,8 +19,8 @@ Icon?
 
 # Generated Files
 /build
-/uploads
-/downloads
+/uploads/**/*
+/downloads/**/*
 /app/app.js
 /app/css
 /app/templates
