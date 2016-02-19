@@ -18,5 +18,9 @@ Icon?
 *.sock
 
 # Generated Files
-/theme
-src/.idea
+/build
+/uploads
+/downloads
+/app/app.js
+/app/css
+/app/templates
