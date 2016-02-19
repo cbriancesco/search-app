@@ -148,10 +148,11 @@
         };
 
 
-        $scope.isImageReady = function(imageId){
-            console.log('image id is ' + imageId);
+        $scope.isImageReady = function(){
 
-            //getFile({fileId: imageId}, true);
+            var data = {id: $scope.profile.image, name: $scope.profile.imageName};
+            
+            //getFile(data);
         }
 
 
@@ -163,8 +164,6 @@
                 console.log(response);
 
                 $scope.profile.imageShow = response.file;
-
-                
 
             }).error(function(error){
                 console.error(error);
@@ -190,7 +189,7 @@
 
                 $scope.profile = response;
 
-                //getFile({fileId: response.image});
+                getFile({id: response.image, name: response.imageName});
 
             }).error(function(error){
                 console.error(error);

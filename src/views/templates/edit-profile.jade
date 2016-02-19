@@ -3,7 +3,7 @@ div(ng-show='showContent')
     div(class="button", ngf-select, ng-model="file", name="file", ngf-pattern="'image/*'", ngf-accept="'image/*'", ngf-max-size="20MB") Select
 
 
-    //-img(ng-if="isImageReady(profile.image)", ng-src="profile.imageShow", width='200') 
+    img(ng-show='profile.imageShow', src="{{profile.imageShow}}", width='200') 
     p {{profile.imageShow}}
     p {{profile.image}}
 
