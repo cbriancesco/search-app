@@ -9,6 +9,7 @@ module.exports = mongoose.model('User', {
     gender: String,
     birth: Date,
     image: String,
+    imageName: String,
     team: String,
     empId: String,
     position: String,

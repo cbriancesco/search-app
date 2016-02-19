@@ -1,47 +1,84 @@
 var mongoose = require('mongoose');
-
-
-
-var express = require('express');
-var formidable = require('formidable');
-var grid = require('gridfs-stream');
+var Schema = mongoose.Schema;
+var User = require('../datasets/users');
+var conn = mongoose.connection;
+ 
 var fs = require('fs');
-var util = require('util');
-var app = express();
+ 
+var Grid = require('gridfs-stream');
+Grid.mongo = mongoose.mongo;
+
+
+
 
 
 module.exports.uploadFile = function(req, res){
     
     console.log('THIS IS THE FILES DATA');
-    //console.log(req.);
+    //{fileName: <string>, userId: <string>}
+    console.log(req.body);
 
-    var form = new formidable.IncomingForm();
-    form.uploadDir = __dirname + "./uploads";
-    form.keepExtensions = true;
-    form.parse(req, function(err, fields, files) {
-        if (!err) {
-            console.log('File uploaded : ' + files.file.path);
-            grid.mongo = mongoose.mongo;
-            var conn = mongoose.createConnection('..mongo connection string..');
-            
-            conn.once('open', function () {
-                var gfs = grid(conn.db);
-                var writestream = gfs.createWriteStream({
-                    filename: files.file.name
-                });
-                fs.createReadStream(files.file.path).pipe(writestream);
-            });
-        } else {
-            console.log(err);
-        }   
+    
+    var gfs = Grid(conn.db);
+ 
+    var writestream = gfs.createWriteStream({
+        filename: req.body.fileName
     });
-    form.on('end', function() {        
-        res.send('Completed ..... go and check fs.files & fs.chunks in  mongodb');
-   });
 
-
-
-
+    fs.createReadStream('uploads/' +  req.body.fileName).pipe(writestream);
+ 
+    writestream.on('close', function (file) {
+        console.log('CREATED FILE');
+        console.log(file);
+        res.json({fileId: file._id, userId: req.body.userId, fileName: file.filename})
+        // do something with `file`
+        console.log(file.filename + ' Written To DB');
+    });
 
 }
+
+
+module.exports.downloadFile = function(req, res){
+    console.log('TO DOWNLOAD');
+    console.log(req);
+
+    //write content to file system
+    var gfs = Grid(conn.db);
+    var filePath = 'downloads/' + req.body.name;
+    var fs_write_stream = fs.createWriteStream(filePath);
+     
+    //read from mongodb
+    var readstream = gfs.createReadStream({
+         _id: req.body.id
+    });
+
+    readstream.pipe(fs_write_stream);
+
+    fs_write_stream.on('close', function () {
+        res.json({file: filePath});
+        console.log('file has been written fully!');
+    });
+
+}
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
 

@@ -21,7 +21,8 @@ module.exports.updatePhoto = function (req, res){
    
     
     var tempPath = file.path;
-    var targetPath = path.join(__dirname, "../../uploads/" + userId + uploadDate + file.name);
+    var fileName = file.name; //userId + uploadDate + file.name;
+    var targetPath = path.join(__dirname, "../../uploads/" + fileName);
     var savePath = "/uploads/" + userId + uploadDate + file.name;
     
     fs.rename(tempPath, targetPath, function (err){
@@ -39,7 +40,7 @@ module.exports.updatePhoto = function (req, res){
 
                         console.log("save successful");
                         
-                        res.json({file: file.name, userId: userId})
+                        res.json({fileName: file.name, userId: userId})
                     }
                 })
             })
@@ -81,6 +82,7 @@ module.exports.getProfile = function (req, res){
                     name: results.name,
                     lastName: results.lastName,
                     image: results.image,
+                    imageName: results.imageName,
                     team: results.team,
                     empId: results.empId,
                     position: results.position,
@@ -103,7 +105,9 @@ module.exports.updateProfile = function (req, res){
         team: req.body.team, 
         empId: req.body.empId, 
         position: req.body.position,
-        role: req.body.role
+        role: req.body.role,
+        image: req.body.image,
+        imageName: req.body.imageName
     };
     var options = {};
 

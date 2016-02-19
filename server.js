@@ -13,6 +13,7 @@ app.set('views', __dirname + '/src/views/pages');
 app.use('/app', express.static(__dirname + '/app'));
 app.use('/node_modules', express.static(__dirname + "/node_modules"));
 app.use('/uploads', express.static(__dirname + "/uploads"));
+app.use('/downloads', express.static(__dirname + "/downloads"));
 
 // Application routes
 routes(app, mongoose);

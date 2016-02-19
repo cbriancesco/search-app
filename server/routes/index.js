@@ -29,6 +29,7 @@ module.exports = exports = function(app, db) {
 
     // Files
     app.post('/fileupload', filesController.uploadFile);
+    app.post('/filedownload', filesController.downloadFile);
 
 };
 

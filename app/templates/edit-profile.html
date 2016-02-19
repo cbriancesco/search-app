@@ -1,6 +1,8 @@
 
 <div ng-show="showContent">
   <div ngf-select="ngf-select" ng-model="file" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="20MB" class="button">Select</div>
+  <p>{{profile.imageShow}}</p>
+  <p>{{profile.image}}</p>
   <p>Name</p>
   <input ng-model="profile.name"/>
   <p>Last Name</p>

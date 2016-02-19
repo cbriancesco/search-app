@@ -115,33 +115,61 @@
                         
         $scope.upload = function (file) {
             if (file){
+                console.log(file);
                 Upload.upload({
                     url: 'user/profile/photo',
                     method: 'POST',
                     data: {userId: $scope.profile.id},
                     file: file
                 }).progress(function(evt){
-                    console.log(evt.loaded + ' of ' + evt.total);
+                    //console.log(evt.loaded + ' of ' + evt.total);
+
                 }).success(function(data){
-                    
-
-
+                    console.log('THIS IS THE RETURN OF THE IMAGE');
+                    console.log(data);
+                    // Saves into gridfs
                     $http.post('fileupload', data).success(function(response){
-                       console.log(response);
+                        console.log('UPLOADED IMAGE');
+                        console.log(response);
 
-                       $scope.profile = response;
+                        $scope.profile.image = response.fileId;
+                        $scope.profile.imageName = response.fileName;
+                        
+                        getFile({id: response.fileId, name: response.fileName});
 
                     }).error(function(error){
                         console.error(error);
                     });
-
-
 
                 }).error(function(error){
                     console.log(error);
                 })
             }
         };
+
+
+        $scope.isImageReady = function(imageId){
+            console.log('image id is ' + imageId);
+
+            //getFile({fileId: imageId}, true);
+        }
+
+
+        function getFile(file){
+            console.log('FILE TO GET');
+            console.log(file);
+            $http.post('filedownload', file).success(function(response){
+                console.log('GETTING IMAGE');
+                console.log(response);
+
+                $scope.profile.imageShow = response.file;
+
+                
+
+            }).error(function(error){
+                console.error(error);
+            });
+        }
 
 
         
@@ -155,9 +183,14 @@
             };
 
             $http.post('user/profile/get', userInfo).success(function(response){
-               console.log(response);
+                console.log('user info');
+                console.log(response);
 
-               $scope.profile = response;
+                var image = response.image;
+
+                $scope.profile = response;
+
+                //getFile({fileId: response.image});
 
             }).error(function(error){
                 console.error(error);
@@ -176,6 +209,7 @@
 
         
         $scope.update = function(){
+            console.log('Data to update');
             console.log($scope.profile);
 
             $http.post('user/profile/update', $scope.profile).success(function(response){
@@ -185,11 +219,7 @@
                     user: response.user
                 };
                 
-                console.log('before');
-                console.log(localStorage['User-Data']);
                 localStorage.setItem('User-Data', JSON.stringify(newData));
-                console.log('after');
-                console.log(localStorage['User-Data']);
 
             }).error(function(error){
                 console.error(error);
