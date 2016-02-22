@@ -117,13 +117,19 @@
             console.log($scope.profile);
 
             $http.post('user/profile/update', $scope.profile).success(function(response){
+                console.log('upload returned');
+                console.log(response);
+
                 var newData = {
-                    email: response.email,
+                    email: $scope.profile.email,
                     id: response._id,
-                    user: response.user
+                    user: $scope.profile.user,
+                    image: $scope.profile.image,
+                    imageName: $scope.profile.imageName,
+                    showImage: $scope.profile.imageShow
                 };
-                
-                localStorage.setItem('User-Data', JSON.stringify(newData));
+
+                sharedData.setUserInfo(newData);
 
             }).error(function(error){
                 console.error(error);

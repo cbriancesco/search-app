@@ -23,5 +23,5 @@ nav.main__nav(ng-controller="NavigationController")
             a.head__profile__link(ui-sref='editProfile') Edit Profile
             a.head__profile__link(ng-click='logOut()') Logout
 
-        li.head__profile__item.image__holder(ng-show='profileImage')
-            img.head__profile__image(ng-show='profileImage', src="{{profileImage}}")
+        li.head__profile__item.image__holder(ng-show='profileImage', style='background:url({{profileImage}}) center no-repeat; background-size:auto 100%')
+            //-img.head__profile__image(ng-show='profileImage', src="{{profileImage}}")
