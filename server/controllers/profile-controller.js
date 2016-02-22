@@ -94,6 +94,7 @@ module.exports.getProfile = function (req, res){
 
 
 module.exports.updateProfile = function (req, res){
+    console.log('UPDATE PROFILE');
     console.log(req.body);
 
     var query = {_id: req.body.id};
@@ -109,13 +110,16 @@ module.exports.updateProfile = function (req, res){
         image: req.body.image,
         imageName: req.body.imageName
     };
+
     var options = {};
 
     User.findOneAndUpdate(query, newInfo, options, function (err, results){
         if (err){
             console.log("Error Out");
         } else {
-          res.json(results);
+            console.log('RESULTS OF UPDATE');
+            console.log(results);
+            res.json(results);
         }
     })
 }

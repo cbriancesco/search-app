@@ -43,7 +43,7 @@
                         $scope.loggedIn = true;
                     });
                 } else {
-                    newInfo.showImage = 'app/img/users/default-image.jpg';
+                    newInfo.showImage = sharedData.options.defaultImage;
                     $scope.profileImage = newInfo.showImage;
 
                     sharedData.setUserInfo(newInfo);
@@ -68,7 +68,10 @@
 }());
 
 
-angular.module('Social').factory('sharedData', function(){
+angular.module('Social').factory('sharedData', function($http){
+    var options = {
+        defaultImage : 'app/img/users/default-image.jpg'
+    };
 
     function test(){
         console.log('test here');
@@ -79,6 +82,8 @@ angular.module('Social').factory('sharedData', function(){
         console.log(data);
         localStorage.clear();
         localStorage.setItem('User-Data', JSON.stringify(data));
+
+        document.location.reload(true);
     }
 
     function getUserInfo(){
@@ -88,10 +93,64 @@ angular.module('Social').factory('sharedData', function(){
         return userInfo;
     }
 
+    /* param {file} = json object -> {name: 'file name', id: 'file id'}*/
+    function getFile(file){
+        return $http.post('filedownload', file).success(function(response){
+            console.log('GETTING IMAGE');
+            console.log(response);
+            return response;
+
+        }).error(function(error){
+            console.error(error);
+        });
+    }
+
+    function uploadFile(data){
+        // Saves into gridfs
+        return $http.post('fileupload', data).success(function(response){
+            console.log('UPLOADED IMAGE');
+            console.log(response);
+
+            return response;
+
+        }).error(function(error){
+            console.error(error);
+        });
+    }
+
+
+    function fileConsult(data){
+        console.log('CONSULTING FILE');
+
+        return $http.post('fileexists', data).success(function(response){
+            console.log(response);
+            return response.data;
+
+        }).error(function(){
+            console.log('THERE WAS AN ERROR');
+            console.error(error);
+        });
+    }
+
+
+    function deleteFile(data){
+        $http.post('fileremove', data).success(function(response){
+            console.log('File deleted');
+        }).error(function(){
+            console.log('THERE WAS AN ERROR');
+            console.error(error);
+        });
+    }
+
+
     return {
-        test: test,
+        options: options,
         getUserInfo: getUserInfo,
-        setUserInfo: setUserInfo
+        setUserInfo: setUserInfo,
+        getFile: getFile,
+        uploadFile: uploadFile,
+        fileConsult: fileConsult,
+        deleteFile: deleteFile
     };
 });
 

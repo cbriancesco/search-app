@@ -40,7 +40,6 @@ module.exports.uploadFile = function(req, res){
 
 module.exports.downloadFile = function(req, res){
     console.log('TO DOWNLOAD');
-    console.log(req);
 
     //write content to file system
     var gfs = Grid(conn.db);
@@ -60,6 +59,41 @@ module.exports.downloadFile = function(req, res){
     });
 
 }
+
+
+module.exports.consultFile = function(req, res){
+    console.log('CONSULT FILE');
+    console.log(req.body.fileName);
+
+    var gfs = Grid(conn.db);
+    var options = {filename : req.body.fileName}; //can be done via _id as well
+
+    gfs.exist(options, function (err, found) {
+        if (err) return handleError(err);
+        found ? console.log('File exists') : console.log('File does not exist');
+        res.json({found: found});
+    });
+
+}
+
+
+
+module.exports.removeFile = function(req, res){
+    console.log('DELETEING FILE');
+
+    var gfs = Grid(conn.db);
+
+    gfs.remove({
+        _id : req.body.id
+    }, function (err) {
+        if (err) return handleError(err);
+        console.log('success');
+        res.json({removed: true});
+    });
+
+}
+
+
 
 
 
