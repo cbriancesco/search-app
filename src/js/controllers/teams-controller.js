@@ -1,6 +1,6 @@
 (function(){
     angular.module('Social')
-    .controller('TeamsController', ['Upload', '$scope', '$state', '$http', 'sharedData', function(Upload, $scope, $state, $http, sharedData){
+    .controller('TeamsController', ['Upload', '$scope', '$state', '$http', 'sharedData', '$q', function(Upload, $scope, $state, $http, sharedData, $q){
 
         var options = {}; 
 
@@ -10,59 +10,6 @@
             $scope.showContent = false;
         }
 
-        // IMAGES DETECTION
-        /*$scope.$watch(function(){
-            return $scope.file
-        }, function (){
-           $scope.upload($scope.file); 
-        });
-
-        $scope.upload = function (file) {
-            if (file){
-                console.log(file);
-                Upload.upload({
-                    url: 'teams/photo',
-                    method: 'POST',
-                    //data: {userId: $scope.profile.id},
-                    file: file
-                }).progress(function(evt){
-                    //console.log(evt.loaded + ' of ' + evt.total);
-
-                }).success(function(data){
-
-                    //options.newImage = data;
-
-                    console.log('THIS IS THE RETURN OF THE IMAGE');
-                    console.log(data);
-                    $scope.newTeam.imageShow = '/uploads/' + data.fileName;
-
-                }).error(function(error){
-                    console.log(error);
-                })
-            }
-        };*/
-
-        $scope.createTeam = function(){
-            console.log($scope.newTeam);
-
-            var array = $scope.positions;
-
-            $scope.newTeam.positions = array.split(",");
-
-            $http.post('teams/add', $scope.newTeam).success(function(response){
-                $scope.newTeam.name = '';
-
-                $state.go('teams');
-                getTeams();
-
-            }).error(function(error){
-                console.log(error);
-            });
-        }
-
-
-
-        
 
 
         $scope.editTeam = function(id){
@@ -75,21 +22,52 @@
         function getTeams(){
             var data = {};
 
-            /*var teamInfo = sharedData.getTeamInfo(data);
+            var teamInfo = sharedData.getTeamInfo(data);
 
             teamInfo.then(function(value){
                 console.log('HERE IS THE TEAM INFO');
-                console.log(value);
-                $scope.myTeams = value;
-            });*/
+                console.log(value.data);
+                $scope.myTeams = value.data;
 
-            $http.post('teams/get', data).success(function (response){
-                $scope.myTeams = response;
-                console.log(response);
-            }).error(function(error){
-                console.log(error);
-            })
+                getImages();
+
+            });
         };
+
+
+        function getImages() {
+
+            var defer = $q.defer();
+            var promises = [];
+
+            angular.forEach( $scope.myTeams, function(value){
+                promises.push(showImage(value));
+            });
+
+            $q.all(promises).then(console.log('THATS ALL FOLKS'));
+
+            return defer;
+        }
+
+        function showImage(value){
+            console.log('HERE IS THE SAMPLE');
+            console.log(value);
+
+            if(value.image){
+                var imageData = {id: value.image, name: value.imageName};
+                var teamImage = sharedData.getFile(imageData);
+
+                teamImage.then(function(image){
+                    console.log('returned file')
+                    console.log(image.data.file);
+                    value.showImage = image.data.file;
+                });
+                console.log('ULTIMATE RESULT');
+                console.log($scope.myTeams);
+            } else {
+                value.showImage = sharedData.options.defaultImage;
+            }
+        }
 
         getTeams();
 
