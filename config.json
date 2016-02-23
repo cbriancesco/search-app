@@ -8,6 +8,7 @@
                 "root": "./src/js/",
                 "base": "./src/js/",
                 "controllers": "./src/js/controllers/",
+                "services": "./src/js/services/",
                 "thirdparty": "./src/js/thirdparty/"
             },
             "css": {

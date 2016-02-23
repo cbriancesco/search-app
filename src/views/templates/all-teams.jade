@@ -1,0 +1,5 @@
+div(ng-show='showContent')
+    a(ui-sref='newteam') Add New Team
+    ul
+        li(ng-repeat='team in myTeams') {{team.name}}
+            a(ng-click="editTeam(team._id)") Edit Team info

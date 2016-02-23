@@ -26,6 +26,8 @@ module.exports = exports = function(app, db) {
     app.post('/teams/add', teamsController.addTeam);
     app.post('/teams/get', teamsController.getTeam);
     app.post('/teams/del', teamsController.delTeam);
+    app.post('/teams/update', teamsController.updateTeam);
+    app.post('/teams/photo', multipartMiddleware, teamsController.photoTeam);
 
     // Files
     app.post('/fileupload', filesController.uploadFile);

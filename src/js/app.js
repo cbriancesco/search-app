@@ -17,8 +17,18 @@
         })
         .state('teams', {
             url: "/teams",
+            templateUrl: "app/templates/all-teams.html",
+            controller: "TeamsController"
+        })
+        .state('newteam', {
+            url: "/teaminfo",
             templateUrl: "app/templates/create-team.html",
             controller: "TeamsController"
+        })
+        .state('editteam', {
+            url: "/editteam",
+            templateUrl: "app/templates/edit-team.html",
+            controller: "EditTeamsController"
         })
         .state('editProfile', {
             url: "/editprofile",
