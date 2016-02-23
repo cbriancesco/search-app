@@ -2,6 +2,8 @@
     angular.module('Social')
     .controller('EditTeamsController', ['Upload', '$scope', '$state', '$http', 'sharedData', function(Upload, $scope, $state, $http, sharedData){
 
+        var options = {};
+
         if (localStorage['User-Data']){
             $scope.showContent = true;
         } else {
@@ -9,7 +11,7 @@
         }
 
         // IMAGES DETECTION
-        /*$scope.$watch(function(){
+        $scope.$watch(function(){
             return $scope.file
         }, function (){
            $scope.upload($scope.file); 
@@ -21,27 +23,65 @@
                 Upload.upload({
                     url: 'teams/photo',
                     method: 'POST',
-                    //data: {userId: $scope.profile.id},
+                    data: {userId: sharedData.options.editTeam},
                     file: file
                 }).progress(function(evt){
                     //console.log(evt.loaded + ' of ' + evt.total);
 
                 }).success(function(data){
 
-                    //options.newImage = data;
+                    options.newImage = data;
 
                     console.log('THIS IS THE RETURN OF THE IMAGE');
                     console.log(data);
-                    $scope.newTeam.imageShow = '/uploads/' + data.fileName;
+                    $scope.editTeam.imageShow = '/uploads/' + data.fileName;
 
                 }).error(function(error){
                     console.log(error);
                 })
             }
-        };*/
+        };
 
 
         $scope.updateTeam = function(){
+
+
+            if(options.newImage){
+
+                var data = {fileName: options.newImage.fileName, userId: options.newImage.userId};
+
+                var uploadedImage = sharedData.uploadFile(data);
+
+                uploadedImage.then(function(val){
+
+                    // HERE YOU DELETE THE OLD IMAGE 
+                    if(options.image && options.image.id){
+                        sharedData.deleteFile({id: options.image.id});
+                    }
+
+                    //console.log('UPLOADED IMAGE DATA');
+                    //console.log(val.data);
+                    options.image = {id: val.data.fileId, name: val.data.fileName};
+
+
+                    console.log('NEW IMAGE VALUES');
+                    console.log(val);
+                    
+                    $scope.editTeam.image = val.data.fileId;
+                    $scope.editTeam.imageName = val.data.fileName;
+
+                    updateData();
+                });
+            } else {
+                updateData();
+            }
+
+            
+        }
+
+        function updateData(){
+            $scope.editTeam.positions = $scope.positions.split(",");
+
             $http.post('teams/update', $scope.editTeam).success(function(response){
                 
 
@@ -81,6 +121,20 @@
                 console.log('HERE IS THE TEAM INFO');
                 console.log(value.data[0]);
                 $scope.editTeam = value.data[0];
+                $scope.positions = value.data[0].positions.toString();
+
+                if(value.data[0].image){
+                    options.image = {id: value.data[0].image, name: value.data[0].imageName};
+
+                    var userImage = sharedData.getFile(options.image);
+
+                    userImage.then(function(value){
+                        $scope.editTeam.imageShow = value.data.file;
+                    });
+
+                } else {
+                    $scope.editTeam.imageShow = sharedData.options.defaultImage;
+                }
             });
         };
 

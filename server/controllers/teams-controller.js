@@ -1,5 +1,7 @@
 var mongoose = require('mongoose');
 var Team = require('../datasets/teams');
+var path = require('path');
+var fs = require('fs-extra');
 
 
 module.exports.addTeam = function(req, res){
@@ -70,7 +72,7 @@ module.exports.delTeam = function(req, res){
 
 module.exports.photoTeam = function (req, res){
     var file = req.files.file;
-    //var userId = req.body.userId;
+    var userId = req.body.userId;
     
     //console.log("User " + userId + " is submitting " , file);
     var uploadDate = new Date();
@@ -85,8 +87,7 @@ module.exports.photoTeam = function (req, res){
         if (err){
             console.log(err)
         } else {
-            res.json({fileName: file.name});
-            /*User.findById(userId, function(err, userData){
+            Team.findById(userId, function(err, userData){
                 var user = userData;
                 //user.image = savePath;
                 user.save(function(err){
@@ -100,7 +101,7 @@ module.exports.photoTeam = function (req, res){
                         res.json({fileName: file.name, userId: userId})
                     }
                 })
-            })*/
+            })
         }
     })
 };

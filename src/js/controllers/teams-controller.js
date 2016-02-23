@@ -49,7 +49,6 @@
 
             $scope.newTeam.positions = array.split(",");
 
-
             $http.post('teams/add', $scope.newTeam).success(function(response){
                 $scope.newTeam.name = '';
 
@@ -69,46 +68,6 @@
         $scope.editTeam = function(id){
             sharedData.options.editTeam = id;
             $state.go('editteam');
-
-            /*console.log('edit team ' + id);
-            options.teamid = id;
-            var team = {'_id': id};
-
-            var teamInfo = sharedData.getTeamInfo(team);
-
-            teamInfo.then(function(value){
-                $state.go('newteam');
-
-                console.log('HERE IS THE TEAM INFO');
-                console.log(value.data[0]);
-                
-                options = value.data[0];
-
-                $scope.newTeam = options;
-                $scope.caleb = 'hello';
-            });*/
-
-
-
-
-            /*$http.post('teams/get', team).success(function(response){
-                
-                //var team = response[0];
-
-                $state.go('newteam');
-                $scope.newTeam = response[0];
-
-                console.log('THIS IS THE TEAM INFO');
-                console.log(response[0]);
-
-                //$scope.newTeam.name = team.name;
-                //$scope.newTeam.positions = team.positions.toString();
-
-                //getTeams();
-
-            }).error(function(error){
-                console.log(error);
-            });*/
         }
 
 
