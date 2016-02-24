@@ -6,6 +6,8 @@ nav.main__nav(ng-controller="NavigationController")
             a.main__nav__link(ui-sref='home') HomePage
         li.main__nav__item(ng-show='loggedIn')
             a.main__nav__link(ui-sref='teams') Teams
+        li.main__nav__item
+            a.main__nav__link(ui-sref='people') People
 
 
 
@@ -14,7 +16,7 @@ nav.main__nav(ng-controller="NavigationController")
             input.head__login__input(type='text', ng-model='login.user', placeholder='User Name')
             input.head__login__input(type='password', ng-model='login.pass', placeholder='Password')
         li.head__login__item
-            button.head__login__button(ng-click='logUserIn()') Login
+            button.head__login__button.submit__button(ng-click='logUserIn()') Login
             a.head__login__link(ui-sref='signUp') Create Accout
         
     ul.head__profile__list(ng-show='loggedIn')
@@ -24,4 +26,3 @@ nav.main__nav(ng-controller="NavigationController")
             a.head__profile__link(ng-click='logOut()') Logout
 
         li.head__profile__item.image__holder(ng-show='profileImage', style='background:url({{profileImage}}) center no-repeat; background-size:auto 100%')
-            //-img.head__profile__image(ng-show='profileImage', src="{{profileImage}}")

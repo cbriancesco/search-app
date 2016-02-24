@@ -85,6 +85,14 @@ angular.module('Social').factory('sharedData', function($http){
         });
     }
 
+    function getPeople(query){
+        return $http.post('user/data/get', query).success(function(response){
+            return response;
+        }).error(function(error){
+            console.error(error);
+        });
+    }
+
 
     return {
         options: options,
@@ -94,6 +102,7 @@ angular.module('Social').factory('sharedData', function($http){
         uploadFile: uploadFile,
         fileConsult: fileConsult,
         deleteFile: deleteFile,
-        getTeamInfo: getTeamInfo
+        getTeamInfo: getTeamInfo,
+        getPeople: getPeople
     };
 });

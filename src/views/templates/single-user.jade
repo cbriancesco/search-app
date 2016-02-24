@@ -1,0 +1,8 @@
+div
+    p Name
+    p {{user.name}}
+
+    p Team
+    p(ng-model='user.team')
+
+    img(ng-show='user.showImage', ng-src="{{user.showImage}}", width='100') 

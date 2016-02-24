@@ -58,7 +58,7 @@
                 console.log('user info');
                 console.log(response);
 
-                if(response.image){
+                if(response.image !== null){
                     options.image = {id: response.image, name: response.imageName};
 
                     var userImage = sharedData.getFile(options.image);
@@ -68,7 +68,6 @@
                     });
                 } else {
                     options.image = {userId: userInfo.id};
-
                     $scope.imageDefault = sharedData.options.defaultImage;
                 }
 
@@ -80,7 +79,7 @@
 
             $http.post('teams/get', {}).success(function (response){
                 $scope.teams = response;
-
+                $scope.teamChange();
                 console.log(response);
             }).error(function(error){
                 console.log(error);
@@ -120,35 +119,25 @@
                     uploadInfo();
                 });
 
-
-                /*console.log('CONSULT IF THERE IS AN EXISTING IMAGE WITH THAT NAME');
-                var consult = sharedData.fileConsult({fileName: options.newImage.fileName});
-                consult.then(function(result) {
-                    //console.log('HERE IS CONSULT');
-                    //console.log(result.data.found);
-                    if (result.data.found){
-                        console.log('THAT FILE ALREADY EXISTS');
-                    } else {
-                        console.log('FILE IS NEW');
-                    }
-                });*/
             } else {
                 uploadInfo();
             }
 
-                //$scope.profile.image = val.data.fileId;
-                //$scope.profile.imageName = val.data.fileName;
-
-                //var getImage = sharedData.getFile({id: val.data.fileId, name: val.data.fileName});
-
-                /*getImage.then(function(value){
-                    console.log('THIS IS THE FILAL FILE');
-                    console.log(value.data);
-
-                    $scope.profile.imageShow = value.data.file;
-                });*/
-
         };
+
+
+
+        $scope.teamChange = function() {
+            console.log('this IS THE CHANGE!!!');
+            console.log($scope.profile.team);
+
+            for(var i = 0, max = $scope.teams.length; i < max; i += 1){
+                if ($scope.teams[i].name === $scope.profile.team){
+                    $scope.positions = $scope.teams[i].positions;
+                }
+            }
+
+        }
 
 
         function uploadInfo(){

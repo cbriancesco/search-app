@@ -35,5 +35,15 @@
             templateUrl: "app/templates/edit-profile.html",
             controller: "ProfileController"
         })
+        .state('people', {
+            url: "/people",
+            templateUrl: "app/templates/all-people.html",
+            controller: "PeopleController"
+        })
+        .state('user', {
+            url: "/user",
+            templateUrl: "app/templates/single-user.html",
+            controller: "PeopleController"
+        });
     })
 }());

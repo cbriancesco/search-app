@@ -1,6 +1,6 @@
 (function(){
     angular.module('Social')
-    .controller('TeamsController', ['Upload', '$scope', '$state', '$http', 'sharedData', '$q', function(Upload, $scope, $state, $http, sharedData, $q){
+    .controller('PeopleController', ['Upload', '$scope', '$state', '$http', 'sharedData', '$q', function(Upload, $scope, $state, $http, sharedData, $q){
 
         var options = {}; 
 
@@ -11,58 +11,36 @@
         }
 
 
-
-        $scope.editTeam = function(id){
-            sharedData.options.editTeam = id;
-            $state.go('editteam');
+        $scope.showPerson = function(data){
+            $scope.user = data;
         }
 
+        $scope.cleanUser = function(){
+            $scope.user = null;
+        }
 
-
-        function getTeams(){
+        function getUsers(){
             var data = {};
+            $scope.user = null;
+            var usersInfo = sharedData.getPeople(data);
 
-            var teamInfo = sharedData.getTeamInfo(data);
-
-            teamInfo.then(function(value){
-                console.log('HERE IS THE TEAM INFO');
+            usersInfo.then(function(value){
+                console.log('PEOPLE RESULTS');
                 console.log(value.data);
-                $scope.myTeams = value.data;
+                $scope.people = value.data;
 
-                getImages();
+                getImages(value.data);
 
             });
         };
 
 
-        $scope.createTeam = function(){
-            console.log($scope.newTeam);
-
-            var array = $scope.positions;
-
-            if($scope.newTeam.positions){
-                $scope.newTeam.positions = array.split(",");
-            }
-            
-
-            $http.post('teams/add', $scope.newTeam).success(function(response){
-                $scope.newTeam.name = '';
-
-                $state.go('teams');
-                getTeams();
-
-            }).error(function(error){
-                onsole.log(error);
-            });
-        }
-
-
-        function getImages() {
+        function getImages(list) {
 
             var defer = $q.defer();
             var promises = [];
 
-            angular.forEach( $scope.myTeams, function(value){
+            angular.forEach( list, function(value){
                 promises.push(showImage(value));
             });
 
@@ -91,7 +69,7 @@
             }
         }
 
-        getTeams();
+        getUsers();
 
     }]);
 }());

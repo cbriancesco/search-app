@@ -8,7 +8,7 @@
             var userInfo = sharedData.getUserInfo();
 
             $scope.navUserName = userInfo.user;
-            $scope.profileImage = userInfo.showImage;
+            $scope.profileImage = userInfo.showImage || sharedData.options.defaultImage;
 
             //console.log(userInfo);
         } else {
@@ -20,8 +20,6 @@
             $http.post('user/login', $scope.login).success(function(response){
                 
                 var newInfo = response;
-                
-                //console.log(newInfo);
 
                 var image = {id: response.image, name: response.imageName};
 

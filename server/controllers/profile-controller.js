@@ -93,6 +93,19 @@ module.exports.getProfile = function (req, res){
 }
 
 
+module.exports.getUser = function (req, res){
+    var query = req.body;
+
+    User.find(query, function (err, results) {
+        if (err){
+            console.log("Error Out");
+        } else {
+          res.json(results);
+        }
+    });
+}
+
+
 module.exports.updateProfile = function (req, res){
     console.log('UPDATE PROFILE');
     console.log(req.body);
