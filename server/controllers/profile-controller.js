@@ -5,13 +5,6 @@ var User = require('../datasets/users');
 var path = require('path');
 
 
-
-
- 
-
-
-
-
 module.exports.updatePhoto = function (req, res){
     var file = req.files.file;
     var userId = req.body.userId;
@@ -49,34 +42,14 @@ module.exports.updatePhoto = function (req, res){
 };
 
 
-/*function uploadImage(fileName, id){
-    console.log(fileName);
-    conn.once('open', function () {
-        console.log('open');
-        var gfs = Grid(conn.db);
-     
-        // streaming to gridfs
-        //filename to store in mongodb
-        var writestream = gfs.createWriteStream({
-            filename: fileName
-        });
-        fs2.createReadStream('../../' + fileName).pipe(writestream);
-     
-        writestream.on('close', function (file) {
-            // do something with `file`
-            console.log(fileName + 'Written To DB');
-        });
-    });
-}*/
-
-
 module.exports.getProfile = function (req, res){
-    User.findById(req.body.id, function (err, results){
+    User.findById(req.body._id, function (err, results){
         if (err){
             console.log("Error Out");
         } else {
-          console.log(results);
-          res.json({email: results.email,
+            if(results){
+                res.json({
+                    email: results.email,
                     id: results._id,
                     user: results.user,
                     name: results.name,
@@ -87,7 +60,8 @@ module.exports.getProfile = function (req, res){
                     empId: results.empId,
                     position: results.position,
                     role: results.role
-                    });
+                });
+            }
         }
     })
 }
@@ -97,6 +71,19 @@ module.exports.getUser = function (req, res){
     var query = req.body;
 
     User.find(query, function (err, results) {
+        if (err){
+            console.log("Error Out");
+        } else {
+          res.json(results);
+        }
+    });
+}
+
+
+module.exports.getUserNum = function (req, res){
+    var query = req.body;
+
+    User.count(query, function (err, results) {
         if (err){
             console.log("Error Out");
         } else {

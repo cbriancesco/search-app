@@ -3,27 +3,39 @@ angular.module('Social').factory('sharedData', function($http){
         defaultImage : 'app/img/users/default-image.jpg'
     };
 
-    function test(){
-        console.log('test here');
+    if(localStorage['User-Data']){
+        options.globalUser = JSON.parse(localStorage['User-Data']);
     }
 
-    function setUserInfo(data){
+    function setUserInfo(data, cb){
         console.log('set user');
         console.log(data);
         localStorage.clear();
         localStorage.setItem('User-Data', JSON.stringify(data));
+        options.globalUser = data;
+
+        if(cb){
+            cb();
+        }
 
         document.location.reload(true);
     }
 
-    function getUserInfo(){
-        console.log('get user');
-        var userInfo = JSON.parse(localStorage['User-Data']);
-        
-        return userInfo;
+    function reload(){
+        document.location.reload(true);
     }
 
-    /* param {file} = json object -> {name: 'file name', id: 'file id'}*/
+    function getUserInfo(){
+        if(localStorage['User-Data']){
+    
+            console.log('get user');
+            var userInfo = JSON.parse(localStorage['User-Data']);
+            
+            return userInfo;
+        }
+    }
+
+    /* param {file} = json object -> {name: <string>, id: <string> */
     function getFile(file){
         return $http.post('filedownload', file).success(function(response){
             console.log('GETTING IMAGE');
@@ -34,9 +46,6 @@ angular.module('Social').factory('sharedData', function($http){
             console.error(error);
         });
     }
-
-    
-
 
     function uploadFile(data){
         // Saves into gridfs
@@ -93,6 +102,14 @@ angular.module('Social').factory('sharedData', function($http){
         });
     }
 
+    function getPeopleNum(query){
+        return $http.post('user/data/getnum', query).success(function(response){
+            return response;
+        }).error(function(error){
+            console.error(error);
+        });
+    }
+
 
     return {
         options: options,
@@ -103,6 +120,7 @@ angular.module('Social').factory('sharedData', function($http){
         fileConsult: fileConsult,
         deleteFile: deleteFile,
         getTeamInfo: getTeamInfo,
-        getPeople: getPeople
+        getPeople: getPeople,
+        getPeopleNum: getPeopleNum
     };
 });

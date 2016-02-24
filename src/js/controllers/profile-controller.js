@@ -3,6 +3,7 @@
     .controller('ProfileController', ['Upload', '$scope', '$state', '$http', 'sharedData', function(Upload, $scope, $state, $http, sharedData){
         
         var options = {};
+        $scope.globalUser = sharedData.getUserInfo();
 
         if (localStorage['User-Data']){
             $scope.showContent = true;
@@ -49,16 +50,11 @@
 
             var userInfo = JSON.parse(localStorage['User-Data']);
 
-            var updatedInfo = {
-                id: userInfo.id,
-                update: $scope.update
-            };
-
             $http.post('user/profile/get', userInfo).success(function(response){
                 console.log('user info');
                 console.log(response);
 
-                if(response.image !== null){
+                if(response.image){
                     options.image = {id: response.image, name: response.imageName};
 
                     var userImage = sharedData.getFile(options.image);
@@ -154,10 +150,11 @@
                     user: $scope.profile.user,
                     image: $scope.profile.image,
                     imageName: $scope.profile.imageName,
-                    showImage: $scope.profile.imageShow
+                    showImage: $scope.profile.imageShow,
+                    role: $scope.profile.role
                 };
 
-                sharedData.setUserInfo(newData);
+                sharedData.setUserInfo(response);
 
             }).error(function(error){
                 console.error(error);

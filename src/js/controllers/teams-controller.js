@@ -4,6 +4,8 @@
 
         var options = {}; 
 
+        $scope.globalUser = sharedData.getUserInfo();
+
         if (localStorage['User-Data']){
             $scope.showContent = true;
         } else {
@@ -40,7 +42,7 @@
 
             var array = $scope.positions;
 
-            if($scope.newTeam.positions){
+            if($scope.positions){
                 $scope.newTeam.positions = array.split(",");
             }
             
