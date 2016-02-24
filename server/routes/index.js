@@ -23,6 +23,7 @@ module.exports = exports = function(app, db) {
     app.post('/user/profile/update', profileController.updateProfile);
     app.post('/user/profile/photo', multipartMiddleware, profileController.updatePhoto);
     app.post('/user/data/get', profileController.getUser);
+    app.post('/user/data/getnum', profileController.getUserNum);
 
     // Teams
     app.post('/teams/add', teamsController.addTeam);

@@ -2,7 +2,7 @@
     angular.module('Social')
     .controller('PeopleController', ['Upload', '$scope', '$state', '$http', 'sharedData', '$q', function(Upload, $scope, $state, $http, sharedData, $q){
 
-        var options = {}; 
+        $scope.globalUser = sharedData.getUserInfo();
 
         if (localStorage['User-Data']){
             $scope.showContent = true;

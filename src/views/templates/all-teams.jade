@@ -1,6 +1,7 @@
-div(ng-show='showContent')
-    a(ui-sref='newteam') Add New Team
+//- (ng-show='showContent')
+div
+    a(ui-sref='newteam', ng-show='globalUser.role == "super admin"') Add New Team
     ul
         li(ng-repeat='team in myTeams') {{team.name}}
             img(ng-show='team.showImage', ng-src="{{team.showImage}}", width='100') 
-            a(ng-click="editTeam(team._id)") Edit Team info
+            a(ng-show='globalUser.role == "super admin"', ng-click="editTeam(team._id)") Edit Team info

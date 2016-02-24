@@ -3,6 +3,7 @@
     .controller('EditTeamsController', ['Upload', '$scope', '$state', '$http', 'sharedData', function(Upload, $scope, $state, $http, sharedData){
 
         var options = {};
+        $scope.globalUser = sharedData.getUserInfo();
 
         if (localStorage['User-Data']){
             $scope.showContent = true;
@@ -44,8 +45,6 @@
 
 
         $scope.updateTeam = function(){
-
-
             if(options.newImage){
 
                 var data = {fileName: options.newImage.fileName, userId: options.newImage.userId};
@@ -80,36 +79,38 @@
         }
 
         function updateData(){
-            $scope.editTeam.positions = $scope.positions.split(",");
+            if($scope.globalUser.role === 'super admin'){
+                $scope.editTeam.positions = $scope.positions.split(",");
 
-            $http.post('teams/update', $scope.editTeam).success(function(response){
-                
+                $http.post('teams/update', $scope.editTeam).success(function(response){
+                    // reset variables
+                    sharedData.options.editTeam = '';
+                    $scope.editTeam = {};
 
-                // reset variables
-                sharedData.options.editTeam = '';
-                $scope.editTeam = {};
+                    console.log('THIS IS THE UPDATED TEAM INFO');
+                    console.log(response);
 
-                console.log('THIS IS THE UPDATED TEAM INFO');
-                console.log(response);
-
-                $state.go('teams');
-            }).error(function(error){
-                console.log(error);
-            });
+                    $state.go('teams');
+                }).error(function(error){
+                    console.log(error);
+                });
+            }
         }
 
 
         $scope.deleteTeam = function(id){
-            console.log('delete team ' + id);
-            var team = {'_id': id};
+            if($scope.globalUser.role === 'super admin'){
+                console.log('delete team ' + id);
+                var team = {'_id': id};
 
-            $http.post('teams/del', team).success(function(response){
-                $state.go('teams');
-                //getTeams();
+                $http.post('teams/del', team).success(function(response){
+                    $state.go('teams');
+                    //getTeams();
 
-            }).error(function(error){
-                console.log(error);
-            })
+                }).error(function(error){
+                    console.log(error);
+                });
+            }
         }
 
 
