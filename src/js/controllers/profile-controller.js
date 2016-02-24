@@ -124,15 +124,11 @@
 
 
         $scope.teamChange = function() {
-            console.log('this IS THE CHANGE!!!');
-            console.log($scope.profile.team);
-
             for(var i = 0, max = $scope.teams.length; i < max; i += 1){
                 if ($scope.teams[i].name === $scope.profile.team){
                     $scope.positions = $scope.teams[i].positions;
                 }
             }
-
         }
 
 

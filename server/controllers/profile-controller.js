@@ -43,7 +43,12 @@ module.exports.updatePhoto = function (req, res){
 
 
 module.exports.getProfile = function (req, res){
-    User.findById(req.body._id, function (err, results){
+    var query = req.body.id || req.body._id;
+
+    console.log('USER REQUEST');
+    console.log(req.body);
+
+    User.findById(query, function (err, results){
         if (err){
             console.log("Error Out");
         } else {
