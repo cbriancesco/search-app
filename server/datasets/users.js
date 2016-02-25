@@ -21,7 +21,6 @@ var UserSchema = new Schema({
     signup: { type: Date, default: Date.now }
 });
 
-
 UserSchema.pre('save', function(next) {
     var user = this;
 

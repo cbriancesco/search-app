@@ -5,6 +5,8 @@ div
         li(ng-repeat='person in people') {{person.name || person.user}}
             img(ng-show='person.showImage', ng-src="{{person.showImage}}", width='100') 
             a(ng-click="showPerson(person)") See user info
+            select(ng-model='person.role', ng-change='updateRole(person)')
+                option(ng-repeat='role in roles') {{role}}
 
 div(ng-show='user')
     p Name

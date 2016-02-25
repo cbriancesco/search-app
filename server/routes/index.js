@@ -2,7 +2,7 @@ var authenticationController = require('../controllers/authentication-controller
     teamsController = require('../controllers/teams-controller'),
     profileController = require('../controllers/profile-controller'),
     filesController = require('../controllers/files-controller'),
-    //peopleController = require('../controllers/people-controller'),
+    adminController = require('../controllers/admin-controller'),
     multipart = require('connect-multiparty'),
     multipartMiddleware = multipart();
 
@@ -24,6 +24,12 @@ module.exports = exports = function(app, db) {
     app.post('/user/profile/photo', multipartMiddleware, profileController.updatePhoto);
     app.post('/user/data/get', profileController.getUser);
     app.post('/user/data/getnum', profileController.getUserNum);
+    app.post('/user/data/set', profileController.setData);
+
+    // Admin
+    app.post('/user/get/admin', adminController.getAdmin);
+    app.post('/user/set/admin', adminController.setAdmin);
+    app.post('/user/create/admin', adminController.createAdmin);
 
     // Teams
     app.post('/teams/add', teamsController.addTeam);

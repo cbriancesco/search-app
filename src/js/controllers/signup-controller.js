@@ -5,6 +5,7 @@
         $scope.alerts = {};
 
         $scope.createUser = function(){
+            $scope.newUser.role = 'user';
             $http.post('user/signup', $scope.newUser).success(function(response){
                 console.log('NEW USER CREATED');
                 console.log(response);

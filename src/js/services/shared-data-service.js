@@ -8,7 +8,7 @@ angular.module('Social').factory('sharedData', function($http){
     }
 
     function setUserInfo(data, cb){
-        console.log('set user');
+        console.log('set user <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<');
         console.log(data);
         localStorage.clear();
         localStorage.setItem('User-Data', JSON.stringify(data));
@@ -29,11 +29,26 @@ angular.module('Social').factory('sharedData', function($http){
         if(localStorage['User-Data']){
     
             console.log('get user');
+
             var userInfo = JSON.parse(localStorage['User-Data']);
+            console.log(userInfo);
             
             return userInfo;
         }
     }
+
+    /* param {data} = json : {id: <string>, set: <json> */
+    function userSet(data){
+        return $http.post('user/data/set', data).success(function(response){
+            console.log('Setting value');
+            console.log(response);
+            return response;
+
+        }).error(function(error){
+            console.error(error);
+        });
+    }
+
 
     /* param {file} = json object -> {name: <string>, id: <string> */
     function getFile(file){
@@ -110,6 +125,14 @@ angular.module('Social').factory('sharedData', function($http){
         });
     }
 
+    function getRoles(){
+        //{roles: ['user', 'admin', 'super admin']};
+        return $http.post('user/get/admin', {}).success(function(response){
+            return response;
+        }).error(function(error){
+            console.error(error);
+        });
+    }
 
     return {
         options: options,
@@ -121,6 +144,8 @@ angular.module('Social').factory('sharedData', function($http){
         deleteFile: deleteFile,
         getTeamInfo: getTeamInfo,
         getPeople: getPeople,
-        getPeopleNum: getPeopleNum
+        getPeopleNum: getPeopleNum,
+        userSet: userSet,
+        getRoles: getRoles
     };
 });

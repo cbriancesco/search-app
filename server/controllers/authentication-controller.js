@@ -15,9 +15,6 @@ module.exports.signup = function(req, res){
 
 
 
-
-
-
 module.exports.login = function (req, res){
     var user = req.body.user;
     var pass = req.body.password;

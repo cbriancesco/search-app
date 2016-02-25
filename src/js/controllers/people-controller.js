@@ -34,6 +34,27 @@
             });
         };
 
+        // GET AND SET THE ROLES
+        var setRoles = sharedData.getRoles();
+        setRoles.then(function(result){
+            $scope.roles = result.data.roles;
+        });
+
+
+        $scope.updateRole = function(data){
+            console.log(data._id);
+            var query = {id: data._id, set: {role: data.role}};
+
+            console.log(query);
+            
+            var setRole = sharedData.userSet(query);
+
+            setRole.then(function(result){
+                console.log('UPDATED ROLE');
+                console.log(result);
+            });
+        }
+
 
         function getImages(list) {
 

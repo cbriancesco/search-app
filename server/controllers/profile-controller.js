@@ -98,6 +98,23 @@ module.exports.getUserNum = function (req, res){
 }
 
 
+module.exports.setData = function (req, res){
+    var query = {_id: req.body.id};
+    var set = req.body.set;
+    var options = {};
+
+    User.update(query, { $set: set}, options, function(err, results){
+        if (err){
+            console.log("Error Out");
+        } else {
+            console.log('SET RESULTS');
+            console.log(results);
+            res.json(results);
+        }
+    });
+}
+
+
 module.exports.updateProfile = function (req, res){
     console.log('UPDATE PROFILE');
     console.log(req.body);
@@ -128,3 +145,13 @@ module.exports.updateProfile = function (req, res){
         }
     })
 }
+
+
+
+
+
+
+
+
+
+

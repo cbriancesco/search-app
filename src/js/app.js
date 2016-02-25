@@ -44,6 +44,11 @@
             url: "/user",
             templateUrl: "app/templates/single-user.html",
             controller: "PeopleController"
+        })
+        .state('admin', {
+            url: "/admin",
+            templateUrl: "app/templates/admin.html",
+            controller: "AdminController"
         });
     })
 }());
