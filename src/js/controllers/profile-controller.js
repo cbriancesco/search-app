@@ -150,7 +150,7 @@
                     role: $scope.profile.role
                 };
 
-                sharedData.setUserInfo(response);
+                sharedData.setUserInfo(newData);
 
             }).error(function(error){
                 console.error(error);
