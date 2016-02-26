@@ -6,6 +6,13 @@
 
         $scope.globalUser = sharedData.getUserInfo();
 
+        var roles = sharedData.getRoles();
+        roles.then(function(result){
+            $scope.roles = result.data.roles;
+            console.log('ROLES ARE HERE');
+            console.log($scope.roles);
+        });
+
         if (localStorage['User-Data']){
             $scope.showContent = true;
         } else {
@@ -22,6 +29,10 @@
 
 
         function getTeams(){
+            console.log('GLOBAL USER INFO');
+            console.log($scope.globalUser);
+
+
             var data = {};
 
             var teamInfo = sharedData.getTeamInfo(data);

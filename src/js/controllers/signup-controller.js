@@ -4,8 +4,15 @@
         
         $scope.alerts = {};
 
+        var roles = sharedData.getRoles();
+        roles.then(function(result){
+            $scope.roles = result.data.roles;
+            console.log('ROLES ARE HERE');
+            console.log($scope.roles);
+        });
+
         $scope.createUser = function(){
-            $scope.newUser.role = 'user';
+            $scope.newUser.role = $scope.roles[0];
             $http.post('user/signup', $scope.newUser).success(function(response){
                 console.log('NEW USER CREATED');
                 console.log(response);
