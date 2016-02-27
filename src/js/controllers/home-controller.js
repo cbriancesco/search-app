@@ -10,7 +10,18 @@
                 $state.go('home');
             }).error(function(error){
                 console.log(error);
-            })
+            });
         }
+
+        var mailData = {subject: 'Test Email', maillist: ['"Caleb Briancesco" <calebbriancesco@hotmail.com>']};
+        $scope.send = function(){
+            $http.post('sendemail', mailData).success(function(response){
+                //$state.go('home');
+            }).error(function(error){
+                console.log(error);
+            });
+        }
+
+
     }]);
 }());

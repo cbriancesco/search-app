@@ -12,6 +12,8 @@ gulp.task('scripts', function() {
     .pipe(gulp.dest(config.paths.prod.js.base));
 });
 
+
+
 gulp.task('scripts-min', function() {
     return gulp.src([config.paths.dev.js.base + 'app.js', config.paths.dev.js.services + '**/*', config.paths.dev.js.controllers + '**/*'])
     .pipe(concat('app.js'))

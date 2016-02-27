@@ -36,6 +36,8 @@
     "mongoose": "^4.4.3",
     "mongoose-fs": "^0.2.7",
     "ng-file-upload": "^12.0.1",
+    "nodemailer": "^2.2.1",
+    "nodemailer-smtp-transport": "^2.4.1",
     "path": "^0.12.7",
     "require-dir": "^0.1.0"
   }

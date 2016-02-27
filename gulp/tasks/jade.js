@@ -11,6 +11,14 @@ gulp.task('jade', function() {
     .pipe(gulp.dest(config.paths.prod.views.templates));
 });
 
+/*gulp.task('emails', function() {
+    return gulp.src(config.paths.dev.views.emails + '*.jade')
+    .pipe(jade({
+        pretty: true
+    }))
+    .pipe(gulp.dest(config.paths.prod.views.emails));
+});*/
+
 
 gulp.task('jade-min', function() {
     return gulp.src(config.paths.dev.views.templates + '*.jade')
