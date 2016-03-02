@@ -2,4 +2,11 @@ div
     p Roles
     textarea(ng-model='roles')
 
+    p Code Divisions 
+    input(type='text', ng-model='newkey', placeholder='Division Name') 
+    button.submit__button(ng-click='addCodeKey()') Add New Code Key
+
+    ul
+        li(ng-repeat='team in codes') {{team.division}}
+
     button.submit__button(ng-click='updateAdmin()') Update Admin

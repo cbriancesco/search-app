@@ -4,6 +4,7 @@ var authenticationController = require('../controllers/authentication-controller
     filesController = require('../controllers/files-controller'),
     adminController = require('../controllers/admin-controller'),
     emailController = require('../controllers/email-controller'),
+    codesController = require('../controllers/codes-controller'),
     multipart = require('connect-multiparty'),
     multipartMiddleware = multipart();
 
@@ -44,6 +45,10 @@ module.exports = exports = function(app, db) {
     app.post('/filedownload', filesController.downloadFile);
     app.post('/fileexists', filesController.consultFile);
     app.post('/fileremove', filesController.removeFile);
+
+    // Codes
+    app.post('/code/newdivision', codesController.newDivision);
+    app.post('/code/getall', codesController.getDivision);
 
     // Emails
     app.post('/sendemail', emailController.sendEmail);

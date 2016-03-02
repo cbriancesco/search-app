@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 module.exports = mongoose.model('Team', {
-    name: String,
+    name: { type: String, required: true, index: { unique: true } },
     positions: Array,
     image: String,
     imageName: String
