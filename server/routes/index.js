@@ -49,6 +49,8 @@ module.exports = exports = function(app, db) {
     // Codes
     app.post('/code/newdivision', codesController.newDivision);
     app.post('/code/getall', codesController.getDivision);
+    app.post('/code/remove', codesController.removeDivision);
+    app.post('/code/update', codesController.updateDivision);
 
     // Emails
     app.post('/sendemail', emailController.sendEmail);

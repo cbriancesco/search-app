@@ -21,6 +21,9 @@
             
         });
 
+        // GET CODES
+        getCodeDivisions();
+
 
 
         // CODES 
@@ -32,6 +35,25 @@
                     getCodeDivisions();
                 });
             }
+        }
+
+        $scope.editCodes = function(id){
+            $scope.editOn = true;
+            $scope.division = {_id: id};
+        }
+
+        $scope.editDone = function(){
+            $scope.editOn = false;
+            $scope.division = {};
+        }
+
+        $scope.addNewCode = function(){
+            //$scope.division.codes = getCodes();
+            console.log($scope.newCode);
+        }
+
+        function getCodes(){
+
         }
 
 
@@ -48,8 +70,18 @@
 
         function getCodeDivisions(){
             var query = {};
-            http.post('code/getall', query).success(function(response){
-                $scope.codes = response;
+            $http.post('code/getall', query).success(function(response){
+                $scope.divisions = response;
+            }).error(function(error){
+                console.error(error);
+            });
+        }
+
+
+        $scope.deleteDivision = function(id){
+            var query = {_id: id};
+            $http.post('code/remove', query).success(function(response){
+                getCodeDivisions();
             }).error(function(error){
                 console.error(error);
             });

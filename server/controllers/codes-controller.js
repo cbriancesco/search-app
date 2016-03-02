@@ -2,24 +2,6 @@ var mongoose = require('mongoose');
 var Code = require('../datasets/codes');
 
 
-
-module.exports.setAdmin = function (req, res){
-    var query = {_id: req.body._id};
-    var set = req.body;
-    var options = {};
-
-    Admin.update(query, { $set: set}, options, function(err, results){
-        if (err){
-            console.log("Error Out");
-        } else {
-            console.log('SET RESULTS');
-            console.log(results);
-            res.json(results);
-        }
-    });
-}
-
-
 module.exports.getDivision = function (req, res){
     var query = req.body;
     Code.find(query, function (err, results) {
@@ -43,6 +25,47 @@ module.exports.newDivision = function(req, res){
     });
 
     res.json(div);
+}
+
+
+module.exports.removeDivision = function(req, res){
+    var query = req.body;
+    Code.remove(query, function (err, results) {
+        if (err){
+            console.log("Error Out");
+        } else {
+            res.json('removed');
+        }
+    });
+}
+
+
+
+module.exports.updateCodes = function(req, res){
+    var query = req.body;
+    Code.remove(query, function (err, results) {
+        if (err){
+            console.log("Error Out");
+        } else {
+            res.json('removed');
+        }
+    });
+}
+
+
+
+module.exports.updateDivision = function (req, res){
+    var query = {_id: req.body._id};
+    var set = {division: req.body.division, codes: req.body.codes}
+    var options = {};
+
+    User.update(query, { $set: set}, options, function(err, results){
+        if (err){
+            console.log("Error Out");
+        } else {
+            res.json(results);
+        }
+    });
 }
 
 

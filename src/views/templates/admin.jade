@@ -7,6 +7,23 @@ div
     button.submit__button(ng-click='addCodeKey()') Add New Code Key
 
     ul
-        li(ng-repeat='team in codes') {{team.division}}
+        li(ng-repeat='team in divisions') {{team.division}} 
+            button(ng-click='editCodes(team._id)') Edit Codes
+            button(ng-click='deleteDivision(team._id)') Remove
+    br
+    br
+    div(ng-show='editOn')
+        button(ng-click='editDone()') Done
+        p edit here
+        br
+        input(type='text', placeholder='Description', ng-model='newCode.description')
+        input(type='text', placeholder='Code', ng-model='newCode.code')
+        button(ng-click='addNewCode()') Add New
+        br
+        div(ng-repeat='code in codes')
+            input(type='text', placeholder='Description', value='code.description')
+            input(type='text', placeholder='Code', value='code.code')
+        br
+        br
 
     button.submit__button(ng-click='updateAdmin()') Update Admin
