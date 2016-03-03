@@ -10,9 +10,19 @@
             templateUrl: "app/templates/home.html",
             controller: "HomeController"
         })
+        .state('codes', {
+            url: "/find-codes",
+            templateUrl: "app/templates/codes.html",
+            controller: "CodesController"
+        })
         .state('signUp', {
             url: "/signup",
             templateUrl: "app/templates/signup.html",
+            controller: "SignupController"
+        })
+        .state('verify', {
+            url: "/verify",
+            templateUrl: "app/templates/verify-user.html",
             controller: "SignupController"
         })
         .state('teams', {

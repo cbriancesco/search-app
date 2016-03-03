@@ -18,6 +18,7 @@ var UserSchema = new Schema({
     empId: String,
     position: String,
     role: String,
+    verified: Boolean,
     signup: { type: Date, default: Date.now }
 });
 

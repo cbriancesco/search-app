@@ -14,43 +14,56 @@
         } else {
             $scope.loggedIn = false;
         }
+
+        var roles = sharedData.getRoles();
+        roles.then(function(result){
+            $scope.roles = result.data.roles;
+            $scope.globalUser = sharedData.getUserInfo();
+        });
         
-        
+        $scope.login = {};
+
         $scope.logUserIn = function(){
-            $http.post('user/login', $scope.login).success(function(response){
+            if($scope.login.user && $scope.login.password){
+                $http.post('user/login', $scope.login).success(function(response){
                 
-                var newInfo = response;
+                    if(response.verified){
+                        var newInfo = response;
 
-                var image = {id: response.image, name: response.imageName};
+                        var image = {id: response.image, name: response.imageName};
 
-                if(newInfo.image){
-                    $http.post('filedownload', image).success(function(data){
-                        
-                        newInfo.showImage = data.file;
-                        $scope.profileImage = newInfo.showImage;
+                        if(newInfo.image){
+                            $http.post('filedownload', image).success(function(data){
+                                
+                                newInfo.showImage = data.file;
+                                $scope.profileImage = newInfo.showImage;
 
-                        sharedData.setUserInfo(newInfo);
+                                sharedData.setUserInfo(newInfo);
 
-                        $scope.loggedIn = true;
+                                $scope.loggedIn = true;
 
-                    }).error(function(error){
-                        newInfo.showImage = 'app/img/users/default-image.jpg';
-                        $scope.profileImage = newInfo.showImage;
+                            }).error(function(error){
+                                newInfo.showImage = 'app/img/users/default-image.jpg';
+                                $scope.profileImage = newInfo.showImage;
 
-                        sharedData.setUserInfo(newInfo);
-                        $scope.loggedIn = true;
-                    });
-                } else {
-                    newInfo.showImage = sharedData.options.defaultImage;
-                    $scope.profileImage = newInfo.showImage;
+                                sharedData.setUserInfo(newInfo);
+                                $scope.loggedIn = true;
+                            });
+                        } else {
+                            newInfo.showImage = sharedData.options.defaultImage;
+                            $scope.profileImage = newInfo.showImage;
 
-                    sharedData.setUserInfo(newInfo);
-                    $scope.loggedIn = true;
-                }
+                            sharedData.setUserInfo(newInfo);
+                            $scope.loggedIn = true;
+                        }
+                    } else {
+                        alert('Your user is not verified');
+                    }
 
-            }).error(function(error){
-                console.error(error);
-            });
+                }).error(function(error){
+                    console.error(error);
+                });
+            }
         };
         
         $scope.logOut = function () {

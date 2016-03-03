@@ -5,6 +5,7 @@ var authenticationController = require('../controllers/authentication-controller
     adminController = require('../controllers/admin-controller'),
     emailController = require('../controllers/email-controller'),
     codesController = require('../controllers/codes-controller'),
+    smsController = require('../controllers/sms-controller'),
     multipart = require('connect-multiparty'),
     multipartMiddleware = multipart();
 
@@ -53,7 +54,11 @@ module.exports = exports = function(app, db) {
     app.post('/code/update', codesController.updateDivision);
 
     // Emails
-    app.post('/sendemail', emailController.sendEmail);
+    app.post('/email/send', emailController.sendEmail);
+    app.post('/email/verify', emailController.verifyEmail);
+
+    // SMS
+    app.post('/sms/send', smsController.sendSms);
 
 };
 

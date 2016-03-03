@@ -5,11 +5,13 @@ nav.main__nav(ng-controller="NavigationController")
         li.main__nav__item
             a.main__nav__link(ui-sref='home') HomePage
         li.main__nav__item
+            a.main__nav__link(ui-sref='codes') Codes Finder
+        li.main__nav__item
             a.main__nav__link(ui-sref='teams') Teams
         li.main__nav__item
             a.main__nav__link(ui-sref='people') People
         li.main__nav__item
-            a.main__nav__link(ui-sref='admin') Admin
+            a.main__nav__link(ui-sref='admin', ng-show='globalUser.role === (roles[2])') Admin
 
 
 

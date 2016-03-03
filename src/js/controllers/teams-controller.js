@@ -4,13 +4,10 @@
 
         var options = {}; 
 
-        $scope.globalUser = sharedData.getUserInfo();
-
         var roles = sharedData.getRoles();
         roles.then(function(result){
             $scope.roles = result.data.roles;
-            console.log('ROLES ARE HERE');
-            console.log($scope.roles);
+            $scope.globalUser = sharedData.getUserInfo();
         });
 
         if (localStorage['User-Data']){

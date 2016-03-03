@@ -2,7 +2,13 @@
     angular.module('Social')
     .controller('PeopleController', ['Upload', '$scope', '$state', '$http', 'sharedData', '$q', function(Upload, $scope, $state, $http, sharedData, $q){
 
-        $scope.globalUser = sharedData.getUserInfo();
+        // GET AND SET THE ROLES
+        var roles = sharedData.getRoles();
+        roles.then(function(result){
+            $scope.roles = result.data.roles;
+            $scope.globalUser = sharedData.getUserInfo();
+        });
+
 
         if (localStorage['User-Data']){
             $scope.showContent = true;
@@ -34,13 +40,7 @@
             });
         };
 
-        // GET AND SET THE ROLES
-        var setRoles = sharedData.getRoles();
-        setRoles.then(function(result){
-            $scope.roles = result.data.roles;
-        });
-
-
+        // UPDATE ROLES
         $scope.updateRole = function(data){
             console.log(data._id);
             var query = {id: data._id, set: {role: data.role}};

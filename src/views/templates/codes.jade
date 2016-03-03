@@ -1,18 +1,5 @@
-a(ng-show='user.showImage', ng-click='cleanUser()') See All
+select(ng-model='codeSelection', ng-change='searchCodes()')
+    option(ng-repeat='div in divisions') {{div.division}}
 
-div
-    ul(ng-show='!user')
-        li(ng-repeat='person in people') {{person.name || person.user}}
-            img(ng-show='person.showImage', ng-src="{{person.showImage}}", width='100') 
-            a(ng-click="showPerson(person)") See user info
-            select(ng-model='person.role', ng-change='updateRole(person)')
-                option(ng-repeat='role in roles') {{role}}
-
-div(ng-show='user')
-    p Name
-    p {{user.name}}
-
-    p Team
-    p {{user.team}}
-
-    img(ng-show='user.showImage', ng-src="{{user.showImage}}", width='100') 
+ul
+    li(ng-repeat='code in codes') {{code.description}} | {{code.code}}
