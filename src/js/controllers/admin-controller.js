@@ -24,8 +24,6 @@
         // GET CODES
         getCodeDivisions();
 
-
-
         // CODES 
         $scope.addCodeKey = function(){
             if($scope.newkey){
@@ -37,25 +35,50 @@
             }
         }
 
-        $scope.editCodes = function(id){
+        $scope.editCodes = function(div){
             $scope.editOn = true;
-            $scope.division = {_id: id};
+            $scope.division = div;
+            console.log(div);
         }
 
         $scope.editDone = function(){
-            $scope.editOn = false;
-            $scope.division = {};
+            finishEdit();
         }
 
         $scope.addNewCode = function(){
-            //$scope.division.codes = getCodes();
-            console.log($scope.newCode);
+            if($scope.newCode.description && $scope.newCode.code){
+                $scope.division.codes = $scope.division.codes || [];
+                $scope.division.codes.push($scope.newCode);
+
+                $scope.newCode = {};
+                console.log($scope.division);
+            }
         }
 
-        function getCodes(){
-
+        $scope.acceptEdit = function(data){
+            updateCodes(data, finishEdit);
         }
 
+        $scope.removeCode = function(i){
+            $scope.division.codes.splice(i, 1);
+
+            updateCodes($scope.division);
+        }
+
+        function updateCodes(data, cb){
+            $http.post('code/update', data).success(function(response){
+                if(cb){
+                    cb();
+                }
+            }).error(function(error){
+                console.error(error);
+            });
+        }
+
+        function finishEdit(){
+            $scope.editOn = false;
+            $scope.division = {};
+        }
 
         function newDivision(div){
             //{roles: ['user', 'admin', 'super admin']};

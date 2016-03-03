@@ -3,26 +3,32 @@ div
     textarea(ng-model='roles')
 
     p Code Divisions 
-    input(type='text', ng-model='newkey', placeholder='Division Name') 
-    button.submit__button(ng-click='addCodeKey()') Add New Code Key
+    div(ng-show='!editOn')
+        input(type='text', ng-model='newkey', placeholder='Division Name') 
+        button.submit__button(ng-click='addCodeKey()') Add New Code Key
 
-    ul
-        li(ng-repeat='team in divisions') {{team.division}} 
-            button(ng-click='editCodes(team._id)') Edit Codes
-            button(ng-click='deleteDivision(team._id)') Remove
+        ul
+            li(ng-repeat='team in divisions') {{team.division}} 
+                button(ng-click='editCodes(team)') Edit Codes
+                button(ng-click='deleteDivision(team._id)') Remove
     br
     br
     div(ng-show='editOn')
         button(ng-click='editDone()') Done
         p edit here
         br
+        input(type='text', ng-model='division.division')
         input(type='text', placeholder='Description', ng-model='newCode.description')
         input(type='text', placeholder='Code', ng-model='newCode.code')
         button(ng-click='addNewCode()') Add New
         br
-        div(ng-repeat='code in codes')
-            input(type='text', placeholder='Description', value='code.description')
-            input(type='text', placeholder='Code', value='code.code')
+        div(ng-repeat='code in division.codes')
+            input(type='text', placeholder='Description', ng-model='code.description')
+            input(type='text', placeholder='Code', ng-model='code.code')
+            button(ng-click='removeCode($index)') delete
+        br
+        br
+        button.submit__button(ng-click='acceptEdit(division)') Accept Edit
         br
         br
 

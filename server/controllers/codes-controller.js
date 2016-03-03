@@ -40,26 +40,12 @@ module.exports.removeDivision = function(req, res){
 }
 
 
-
-module.exports.updateCodes = function(req, res){
-    var query = req.body;
-    Code.remove(query, function (err, results) {
-        if (err){
-            console.log("Error Out");
-        } else {
-            res.json('removed');
-        }
-    });
-}
-
-
-
 module.exports.updateDivision = function (req, res){
     var query = {_id: req.body._id};
     var set = {division: req.body.division, codes: req.body.codes}
     var options = {};
 
-    User.update(query, { $set: set}, options, function(err, results){
+    Code.update(query, {$set: set}, options, function(err, results){
         if (err){
             console.log("Error Out");
         } else {
